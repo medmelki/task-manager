@@ -1,4 +1,4 @@
-package hello;
+package com.taskmanager.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
