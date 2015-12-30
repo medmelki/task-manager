@@ -3,7 +3,6 @@ package com.taskmanager.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -18,11 +17,7 @@ public class User implements Serializable {
     @Id
     private String username;
     private String password;
-    @OneToMany
-    @JoinTable(name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_fk")},
-            inverseJoinColumns = {@JoinColumn(name = "role_fk")}
-    )
+    @ManyToMany(mappedBy = "users")
     List<Role> roles;
     private String companyId;
     private String phone;

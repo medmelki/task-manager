@@ -23,8 +23,22 @@ public class UserController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String addPerson(@ModelAttribute User user) {
+    public String addUser(@ModelAttribute User user) {
         userService.create(user);
         return "redirect:/user";
     }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public String updateUser(@ModelAttribute User user) {
+        userService.update(user);
+        return "redirect:/user";
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public String deleteUser(@ModelAttribute User user) {
+        userService.delete(user);
+        return "redirect:/user";
+    }
+
+
 }
