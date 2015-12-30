@@ -39,4 +39,7 @@
   <!-- Enable @Transactional annotation -->
   <tx:annotation-driven/>
 
+  <!-- Import Spring Security Configuration -->
+  <import resource="spring-security.xml" />
+
 </beans>

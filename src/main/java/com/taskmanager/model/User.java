@@ -1,5 +1,9 @@
 package com.taskmanager.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -8,17 +12,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
     @Id
     private String username;
     private String password;
     @ManyToMany(mappedBy = "users")
-    List<Role> roles;
+    Set<Role> roles = new HashSet<>();
     private String companyId;
     private String phone;
     private String address;
@@ -49,8 +56,39 @@ public class User implements Serializable {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authList = new HashSet<GrantedAuthority>();
+
+        for (Role role : this.getRoles()) {
+            authList.add(new SimpleGrantedAuthority(role.getName()));
+        }
+
+        return authList;
     }
 
     public String getPassword() {
@@ -61,11 +99,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
