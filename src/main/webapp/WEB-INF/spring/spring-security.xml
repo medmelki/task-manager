@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:security="http://www.springframework.org/schema/security"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <security:http pattern="/resources" security="none" />
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/resources" access="permitAll"/>
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/logout" access="permitAll"/>
+        <intercept-url pattern="/denied" access="permitAll"/>
+        <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/user" access="permitAll"/>
+        <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
 
-    <security:http auto-config="true"  use-expressions="true">
-        <security:intercept-url pattern="/login" access="permitAll"/>
-        <security:intercept-url pattern="/logout" access="permitAll"/>
-        <security:intercept-url pattern="/denied" access="hasRole('ROLE_USER')"/>
-        <security:intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
-        <security:intercept-url pattern="/user" access="hasRole('ROLE_USER')"/>
-        <security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
-
-        <security:form-login login-page="/login"
+        <form-login login-page="/login"
                     authentication-failure-url="/login/failure"
                     default-target-url="/"/>
 
-        <security:access-denied-handler error-page="/denied"/>
+        <access-denied-handler error-page="/denied"/>
 
-        <security:logout invalidate-session="true"
+        <logout invalidate-session="true"
                 logout-success-url="/logout/success"
                 logout-url="/logout"/>
-    </security:http>
+    </http>
 
-    <security:global-method-security pre-post-annotations="enabled"/>
+    <!--<global-method-security pre-post-annotations="enabled"/>-->
 
-    <security:authentication-manager>
-        <security:authentication-provider user-service-ref="customUserDetailsService">
-            <security:password-encoder hash="md5"/>
-        </security:authentication-provider>
-    </security:authentication-manager>
+    <authentication-manager>
+        <authentication-provider user-service-ref="customUserDetailsService">
+            <!--<password-encoder hash="md5"/>-->
+        </authentication-provider>
+    </authentication-manager>
 
-</beans>
+</beans:beans>

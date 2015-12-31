@@ -1,14 +1,17 @@
 package com.taskmanager.security;
 
-import com.taskmanager.model.User;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Service("customUserDetailsService")
+@Repository("customUserDetailsService")
+@Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
     private EntityManager entityManager;
@@ -18,11 +21,23 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.entityManager = newEm;
     }
 
-    public UserDetails loadUserByUsername(String username) {
 
-        return entityManager.createQuery("from User where username = :username", User.class)
-                .setParameter("username", username)
-                .getSingleResult();
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        try {
+            com.taskmanager.model.User domainUser = entityManager.createQuery("from User where username = :username", com.taskmanager.model.User.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+            return new User(
+                    domainUser.getUsername(),
+                    domainUser.getPassword().toLowerCase(),
+                    domainUser.isEnabled(),
+                    domainUser.isAccountNonExpired(),
+                    domainUser.isCredentialsNonExpired(),
+                    domainUser.isAccountNonLocked(),
+                    domainUser.getAuthorities());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
