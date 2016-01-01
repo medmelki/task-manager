@@ -1,15 +1,14 @@
 package com.taskmanager.service.impl;
 
 
-import com.taskmanager.model.User;
-import com.taskmanager.service.IDocumentService;
+import com.taskmanager.model.Note;
 import com.taskmanager.service.INoteService;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class NoteService extends GenericService<User, Integer> implements INoteService {
+public class NoteService extends GenericService<Note, Integer> implements INoteService {
 
     public NoteService() {
-        super(User.class);
+        super(Note.class);
     }
 }
