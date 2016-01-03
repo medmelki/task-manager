@@ -5,8 +5,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,15 +26,18 @@ public class User implements Serializable, UserDetails {
     @Id
     private String username;
     private String password;
-    @ManyToMany(mappedBy = "users")
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = {@JoinColumn(name = "user_fk")},
+            inverseJoinColumns = {@JoinColumn(name = "role_fk")})
     Set<Role> roles = new HashSet<>();
     private String companyId;
     private String phone;
     private String address;
     private String email;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     List<Picture> pictures;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     List<Document> documents;
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
@@ -46,7 +51,7 @@ public class User implements Serializable, UserDetails {
         this.tasks = tasks;
     }
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private List<Task> tasks;
 
     public User() {

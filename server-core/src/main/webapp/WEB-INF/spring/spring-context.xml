@@ -12,11 +12,14 @@
 
     <context:component-scan base-package="com.taskmanager"/>
 
-    <mvc:resources mapping="/**" location="/" />
+    <mvc:resources mapping="/**" location="/"/>
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources
         in the /WEB-INF/views directory -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
     </bean>
     <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <property name="resourceLoaderPath">

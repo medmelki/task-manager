@@ -24,7 +24,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini" ng-app="myApp" ng-controller="productsCtrl">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="rest-client" ng-controller="userController as users">
 <div class="wrapper">
 
     <!-- Main Header -->
@@ -33,9 +33,9 @@
         <!-- Logo -->
         <a href="products.html" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>P</b>Mgr</span>
+            <span class="logo-mini"><b>T</b>Mgr</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Product</b>Manager</span>
+            <span class="logo-lg"><b>Task</b>Manager</span>
         </a>
 
         <!-- Header Navbar -->
@@ -68,11 +68,10 @@
             <ul class="sidebar-menu">
                 <li class="header">Dashboard</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Products</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Categories</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Sub Categories</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Manufacturers</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Suppliers</span></a></li>
+                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Admin</span></a></li>
+                <li><a href="#"><i class="fa fa-link"></i> <span>Nodes</span></a></li>
+                <li><a href="#"><i class="fa fa-link"></i> <span>Packages</span></a></li>
+                <li><a href="#"><i class="fa fa-link"></i> <span>tasks</span></a></li>
                 <!--<li class="treeview">
                   <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
@@ -90,11 +89,11 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                PRODUCTS
+                USERS
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                <li class="active">Products</li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Administration</a></li>
+                <li class="active">users</li>
             </ol>
         </section>
 
@@ -110,19 +109,22 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Reference</th>
-                                    <th>Manufacturer</th>
-                                    <th>Supplier</th>
-                                    <th>Category</th>
-                                    <th>SubCategory</th>
-                                    <th>Count</th>
-                                    <th>Weight</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Company ID</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Email</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="user in users">
+                                <tr ng-repeat="user in users.list">
                                     <td>{{user.username}}</td>
+                                    <td>{{user.password}}</td>
+                                    <td>{{user.companyId}}</td>
+                                    <td>{{user.phone}}</td>
+                                    <td>{{user.address}}</td>
+                                    <td>{{user.email}}</td>
                                 </tr>
                                 </tbody>
                                 </table>
@@ -216,7 +218,11 @@
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="app.js"></script>
+<script src="dist/js/modules/rest-client.js"></script>
+<script src="dist/js/modules/login.js"></script>
+<script src="dist/js/modules/users.js"></script>
+<script src="dist/js/modules/rooms.js"></script>
+<script src="dist/js/filters/roomsByDomain.js"></script>
 
 </body>
 </html>
