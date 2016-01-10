@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http auto-config="true" use-expressions="true">
+    <http auto-config="true" use-expressions="true" entry-point-ref="authenticationEntryPoint">
         <!--<intercept-url pattern="/resources" access="permitAll"/>
         <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/logout" access="permitAll"/>
@@ -28,9 +28,17 @@
         <custom-filter ref="corsFilter" before="HEADERS_FILTER"/>
     </http>
 
+    <beans:bean id="loginFilter"
+                class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="filterProcessesUrl" value="/j_spring_security_check"/>
+        <beans:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
+        <beans:property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+    </beans:bean>
+
     <global-method-security pre-post-annotations="enabled"/>
 
-    <authentication-manager>
+    <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="customUserDetailsService">
             <!--<password-encoder hash="md5"/>-->
         </authentication-provider>

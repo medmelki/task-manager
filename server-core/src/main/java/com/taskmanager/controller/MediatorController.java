@@ -12,10 +12,10 @@ public class MediatorController {
         return "home";
     }
 
-    @RequestMapping(value = "/user")
+/*    @RequestMapping(value = "/user")
     public String getUserPage() {
         return "user";
-    }
+    }*/
 
     @RequestMapping(value = "/admin")
     public String getAdminPage() {

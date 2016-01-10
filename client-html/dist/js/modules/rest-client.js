@@ -1,9 +1,8 @@
+'use strict';
 
-(function () {
+var app = angular.module('rest-client', ['login', 'rooms',
+    'roomsByDomain']);
 
-    var app = angular.module('rest-client', ['login', 'users', 'rooms',
-        'roomsByDomain']);
-})();
 
 
 
