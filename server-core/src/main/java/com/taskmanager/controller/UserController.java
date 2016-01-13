@@ -52,6 +52,18 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
+    @RequestMapping(value = "/user/current", method = RequestMethod.GET)
+    public ResponseEntity<User> getAuthenticatedUser() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.read(auth.getName());
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/role/", method = RequestMethod.GET)
     public ResponseEntity<List<Role>> listAllRoles() {
 
@@ -123,15 +135,15 @@ public class UserController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
-//        if (username.equals(name)) {
-        User user = userService.read(username);
-        Picture picture = user.getPictures().get(0);
+        if (username.equals(name)) {
+            User user = userService.read(username);
+            Picture picture = user.getPictures().get(0);
             if (picture != null) {
                 return new ResponseEntity<>(picture.getData(), HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.CONFLICT);
-//        }
-//        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
 }

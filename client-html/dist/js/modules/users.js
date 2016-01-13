@@ -5,21 +5,13 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
 
         var self = this;
         self.user = {username: '', password: '', address: '', email: ''};
+        self.currentUser = {username: '', password: '', address: '', email: ''};
         self.users = [];
         self.roles = [{"name": "ROLE_USER", "description": null}, {"name": "ROLE_ADMIN", "description": null},
             {"name": "ROLE_SUPERADMIN", "description": null}];
         $rootScope.updateMode = 0;
 
         var appURL = "http://localhost:8080/";
-
-        $scope.$on('login', function (event, data) {
-
-            self.user.username = data;
-
-            /*console.log("test");
-             self.getPicture(data);*/
-
-        });
 
         self.getPicture = function (username) {
             UserService.getPicture(username)
@@ -33,9 +25,6 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                 );
         };
 
-        self.getPicture(self.user.username);
-
-
         self.findAllUsers = function () {
             UserService.findAllUsers()
                 .then(
@@ -48,6 +37,21 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                     }
                 );
         };
+
+        self.findCurrentUser = function () {
+            UserService.getCurrentUser()
+                .then(
+                    function (d) {
+                        self.currentUser = d;
+                        self.getPicture(self.currentUser.username);
+                    },
+                    function (errResponse) {
+                        console.error('Error while fetching current user');
+                    }
+                );
+        };
+
+        self.findCurrentUser();
 
         self.findUserByUsername = function () {
             UserService.findUserByUsername()

@@ -16,8 +16,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini" ng-app="rest-client" ng-controller="LoginController as login">
-<div class="wrapper" ng-app="rest-client" ng-controller="UserController as ctrl">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="rest-client" ng-controller="UserController as ctrl">
+<div class="wrapper">
 
     <header class="main-header">
         <a href="#" class="logo">
@@ -34,7 +34,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img ng-src="{{ctrl.cstantPicture}}" class="user-image" alt="User Image">
-                            <span class="hidden-xs">{{ctrl.user.username}}</span>
+                            <span class="hidden-xs">{{ctrl.currentUser.username}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -42,7 +42,7 @@
                                 <img ng-src="{{ctrl.cstantPicture}}" class="img-circle" alt="User Image">
 
                                 <p>
-                                    {{ctrl.user.username}}
+                                    {{ctrl.currentUser.username}}
                                     <!--<small>{{user.companyId}}</small>-->
                                     <!--</p>-->
                             </li>
