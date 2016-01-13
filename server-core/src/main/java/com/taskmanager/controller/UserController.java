@@ -130,7 +130,7 @@ public class UserController {
     }
 
     //    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/user/picture/{username}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @RequestMapping(value = "/user/picture/{username}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getPicture(@PathVariable String username) throws IOException {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
