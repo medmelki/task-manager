@@ -1,5 +1,8 @@
 package com.taskmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +22,7 @@ public class Document implements Serializable {
     private int id;
     private String name;
     @Lob
+    @Column(length = 20971520)
     private byte[] data;
     @ManyToOne
     @JoinColumn(name = "user_fk")
@@ -51,6 +55,7 @@ public class Document implements Serializable {
         this.data = data;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }

@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="dist/css/customStyle.css">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini" ng-app="rest-client" ng-controller="UserController as ctrl">
-<div class="wrapper">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="rest-client" ng-controller="LoginController as login">
+<div class="wrapper" ng-app="rest-client" ng-controller="UserController as ctrl">
 
     <header class="main-header">
         <a href="#" class="logo">
@@ -27,6 +28,37 @@
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img ng-src="{{ctrl.cstantPicture}}" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ctrl.user.username}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img ng-src="{{ctrl.cstantPicture}}" class="img-circle" alt="User Image">
+
+                                <p>
+                                    {{ctrl.user.username}}
+                                    <!--<small>{{user.companyId}}</small>-->
+                                    <!--</p>-->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
 
@@ -104,7 +136,8 @@
                                     <td ng-bind="user.address"></td>
                                     <td ng-bind="user.email"></td>
                                     <td>
-                                        <select ng-init="activeRole = 0" ng-model="user.roles[activeRole]" ng-options="role.name for role in user.roles"
+                                        <select ng-init="activeRole = 0" ng-model="user.roles[activeRole]"
+                                                ng-options="role.name for role in user.roles"
                                                 ng-change="setActiveRole(activeRole - 1)"></select>
                                     </td>
                                     <td>
@@ -112,7 +145,8 @@
                                                 class="glyphicon glyphicon-pencil" ng-click="ctrl.populateModal(user)"
                                                 data-target="#addModal" data-toggle="modal"></i></button>
                                         <button type="button" class="btn btn-primary btn-xs"><i
-                                                class="glyphicon glyphicon-remove" ng-click="ctrl.deleteUser(user.username)"></i></button>
+                                                class="glyphicon glyphicon-remove"
+                                                ng-click="ctrl.deleteUser(user.username)"></i></button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -136,23 +170,25 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <h4><strong>Add User</strong></h4>
-                <br>
+                <h4><strong>User Information</strong></h4>
 
                 <form class="form-horizontal col-sm-6 mod_form">
+                    <br>
 
                     <div class="form-group form-group-sm">
                         <label for="inputName" class="col-sm-3 control-label">Username</label>
 
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="inputName" ng-model="ctrl.user.username" ng-disabled="updateMode === 1">
+                            <input class="form-control" type="text" id="inputName" ng-model="ctrl.user.username"
+                                   ng-disabled="updateMode === 1">
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
                         <label for="inputPassword" class="col-sm-3 control-label">Password</label>
 
                         <div class="col-sm-8">
-                            <input class="form-control" type="password" id="inputPassword" ng-model="ctrl.user.password">
+                            <input class="form-control" type="password" id="inputPassword"
+                                   ng-model="ctrl.user.password">
                         </div>
                     </div>
 
@@ -161,7 +197,7 @@
 
                         <div class="col-sm-8">
                             <!--<select multiple ng-model="ctrl.user.roles" ng-options="role.name for role in ctrl.user.roles"-->
-                                    <!--ng-change="setActiveRole(user.roles[activeRole - 1])"></select>-->
+                            <!--ng-change="setActiveRole(user.roles[activeRole - 1])"></select>-->
                             <!--{{ctrl.user.roles}}-->
                             <select multiple ng-model="ctrl.user.roles" ng-options="role.name for role in ctrl.roles">
                             </select>
@@ -182,14 +218,12 @@
                             <input class="form-control" type="text" id="inputCompany" ng-model="ctrl.user.companyId">
                         </div>
                     </div>
-
-                </form>
-                <form class="form-horizontal col-sm-6 mod_form">
                     <div class="form-group form-group-sm">
                         <label for="inputAddress" class="col-sm-3 control-label">Address</label>
 
                         <div class="col-sm-8">
-                            <textarea class="form-control" type="text" id="inputAddress" ng-model="ctrl.user.address"></textarea>
+                            <textarea class="form-control" type="text" id="inputAddress"
+                                      ng-model="ctrl.user.address"></textarea>
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
@@ -200,25 +234,54 @@
                         </div>
                     </div>
 
-                    <div class="form-group form-group-sm">
-                        <label for="inputPicture" class="col-sm-3 control-label">Pictures</label>
 
-                        <div class="col-sm-8">
-                            <input class="form-control" type="file" id="inputPicture">
-                        </div>
-                    </div>
-                    <div class="form-group form-group-sm">
-                        <label for="inputDocument" class="col-sm-3 control-label">Documents</label>
-
-                        <div class="col-sm-8">
-                            <input class="form-control" type="file" id="inputDocument">
-                        </div>
-                    </div>
                 </form>
-                <button type="button" class="btn btn-default col-sm-offset-5" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary col-sm-offset-10" data-dismiss="modal"
-                        ng-click="ctrl.submit()">SUBMIT
-                </button>
+                <form class="form-horizontal col-sm-6 mod_form">
+                    <br>
+
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-3 control-label">Pictures</label>
+
+                        <div ngf-drop ngf-select ng-model="pictures" class="drop-box"
+                             ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+                             accept="'image/*'"
+                             ngf-pattern="'image/*'">Drop images here or click to upload
+                        </div>
+                        <div ngf-no-file-drop>Picture Drag/Drop is not supported for this browser</div>
+
+                        <ul>
+                            <li ng-repeat="p in pictures" style="font:smaller">{{p.name}} {{p.$error}}
+                                {{p.$errorParam}}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-3 control-label">Documents</label>
+
+                        <div ngf-drop ngf-select ng-model="documents" class="drop-box"
+                             ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+                             accept="'application/pdf'"
+                             ngf-pattern="'application/pdf'">Drop pdfs here or click to upload
+                        </div>
+                        <div ngf-no-file-drop>Document Drag/Drop is not supported for this browser</div>
+
+                        <ul>
+                            <li ng-repeat="d in documents" style="font:smaller">{{d.name}} {{d.$error}}
+                                {{d.$errorParam}}
+                            </li>
+                        </ul>
+                    </div>
+
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default col-sm-offset-5" data-dismiss="modal"
+                            ng-click="ctrl.reset();">Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary col-sm-offset-10" data-dismiss="modal"
+                            ng-click="ctrl.submit()">SUBMIT
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -232,6 +295,8 @@
 <script src="dist/js/app.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="dist/js/modules/rest-client.js"></script>
+<script src="plugins/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+<script src="plugins/ng-file-upload.min.js"></script>
 <script src="dist/js/modules/login.js"></script>
 <script src="dist/js/services/users_service.js"></script>
 <script src="dist/js/modules/users.js"></script>

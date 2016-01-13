@@ -1,5 +1,7 @@
 package com.taskmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -51,6 +53,7 @@ public class Picture implements Serializable {
         this.data = data;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }

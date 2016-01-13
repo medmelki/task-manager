@@ -19,6 +19,19 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                 );
         },
 
+        findUserByUsername: function () {
+            return $http.get(appURL + 'user/{username}', {withCredentials: true})
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (errResponse) {
+                        console.error('Error while fetching users');
+                        return $q.reject(errResponse);
+                    }
+                );
+        },
+
         findAllRoles: function () {
             return $http.get(appURL + 'role/', {withCredentials: true})
                 .then(
@@ -75,6 +88,22 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while deleting user');
+                        return $q.reject(errResponse);
+                    }
+                );
+        },
+
+        getPicture: function (username) {
+            return $http.get(appURL + 'user/picture/' + username, {
+                    withCredentials: true,
+                    responseType : 'blob'
+                })
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (errResponse) {
+                        console.error('Error while retrieving picture');
                         return $q.reject(errResponse);
                     }
                 );

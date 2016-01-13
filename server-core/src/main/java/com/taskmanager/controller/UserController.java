@@ -1,19 +1,29 @@
 package com.taskmanager.controller;
 
+import com.taskmanager.model.Document;
+import com.taskmanager.model.Picture;
 import com.taskmanager.model.Role;
 import com.taskmanager.model.User;
+import com.taskmanager.service.IDocumentService;
+import com.taskmanager.service.IPictureService;
 import com.taskmanager.service.IRoleService;
 import com.taskmanager.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,6 +35,10 @@ public class UserController {
     private IUserService userService;
     @Autowired
     private IRoleService roleService;
+    @Autowired
+    private IDocumentService documentService;
+    @Autowired
+    private IPictureService pictureService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/user/", method = RequestMethod.GET)
@@ -71,6 +85,53 @@ public class UserController {
         user.setUsername(username);
         userService.delete(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/user/documents/upload/")
+    public void uploadDocument(@RequestParam("document") MultipartFile document, @RequestParam("username") String username) throws IOException {
+
+        Document doc = new Document();
+        User user = new User();
+        user.setUsername(username);
+        if (!document.isEmpty()) {
+            doc.setUser(user);
+            doc.setName(document.getOriginalFilename());
+            doc.setData(document.getBytes());
+        }
+        documentService.create(doc);
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/user/pictures/upload/")
+    public void uploadPicture(@RequestParam("picture") MultipartFile picture, @RequestParam("username") String username) throws IOException {
+
+        Picture pic = new Picture();
+        User user = new User();
+        user.setUsername(username);
+        if (!picture.isEmpty()) {
+            pic.setUser(user);
+            pic.setName(picture.getOriginalFilename());
+            pic.setData(picture.getBytes());
+        }
+        pictureService.create(pic);
+    }
+
+    //    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/user/picture/{username}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getPicture(@PathVariable String username) throws IOException {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+//        if (username.equals(name)) {
+        User user = userService.read(username);
+        Picture picture = user.getPictures().get(0);
+            if (picture != null) {
+                return new ResponseEntity<>(picture.getData(), HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+//        }
+//        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
 }

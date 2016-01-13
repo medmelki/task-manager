@@ -31,7 +31,7 @@
     <!-- MySQL Datasource with Commons DBCP connection pooling -->
     <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/tasks"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/tasks?maxAllowedPacket=20000000"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
@@ -40,6 +40,11 @@
     <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
         <property name="persistenceUnitName" value="persistenceUnit"/>
         <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="5000000"/>
     </bean>
 
     <!-- Transaction Manager -->

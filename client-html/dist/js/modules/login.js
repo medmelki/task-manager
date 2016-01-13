@@ -2,7 +2,7 @@
 
     var app = angular.module('login', []);
 
-    app.controller('loginController', function ($scope, $http, $q, $window) {
+    app.controller('loginController', function ($rootScope, $scope, $http, $q, $window) {
 
         var serverURL = "http://localhost:8080";
 
@@ -39,7 +39,7 @@
 
             deferred.promise.then(
                 function () {
-                    $scope.$broadcast('login', 'Success');
+                    $rootScope.$broadcast('login', username);
                     $window.location.href = 'admin.html';
                 },
 
