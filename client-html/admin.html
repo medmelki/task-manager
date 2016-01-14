@@ -136,9 +136,9 @@
                                     <td ng-bind="user.address"></td>
                                     <td ng-bind="user.email"></td>
                                     <td>
-                                        <select ng-init="activeRole = 0" ng-model="user.roles[activeRole]"
+                                        <select ng-init="activeRole = user.roles[0]" ng-model="activeRole"
                                                 ng-options="role.name for role in user.roles"
-                                                ng-change="setActiveRole(activeRole - 1)"></select>
+                                                ng-change="setActiveRole(user.roles[activeRole - 1])"></select>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-xs"><i

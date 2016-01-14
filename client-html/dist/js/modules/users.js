@@ -151,6 +151,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
 
         $scope.setActiveRole = function (x) {
             $scope.activeRole = x;
+            console.log("activeRole set to " + $scope.activeRole);
         };
 
         $scope.$watch('documents', function () {
