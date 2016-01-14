@@ -19,14 +19,14 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                 );
         },
 
-        findUserByUsername: function () {
-            return $http.get(appURL + 'user/{username}', {withCredentials: true})
+        findUserByUsername: function (username) {
+            return $http.get(appURL + 'user/' + username, {withCredentials: true})
                 .then(
                     function (response) {
                         return response.data;
                     },
                     function (errResponse) {
-                        console.error('Error while fetching users');
+                        console.error('Error while fetching user');
                         return $q.reject(errResponse);
                     }
                 );

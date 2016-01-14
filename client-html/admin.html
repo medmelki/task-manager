@@ -49,7 +49,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="profile.html" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="#" class="btn btn-default btn-flat">Sign out</a>
@@ -165,7 +165,7 @@
     <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
 </footer>
 
-<!-- Add User Modal -->
+<!-- Add/Update User Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -250,6 +250,8 @@
                         <div ngf-no-file-drop>Picture Drag/Drop is not supported for this browser</div>
 
                         <ul>
+                            <li ng-repeat="p in ctrl.user.pictures" style="font:smaller">{{p.name}}
+                            </li>
                             <li ng-repeat="p in pictures" style="font:smaller">{{p.name}} {{p.$error}}
                                 {{p.$errorParam}}
                             </li>
@@ -267,6 +269,8 @@
                         <div ngf-no-file-drop>Document Drag/Drop is not supported for this browser</div>
 
                         <ul>
+                            <li ng-repeat="d in ctrl.user.documents" style="font:smaller">{{d.name}}
+                            </li>
                             <li ng-repeat="d in documents" style="font:smaller">{{d.name}} {{d.$error}}
                                 {{d.$errorParam}}
                             </li>

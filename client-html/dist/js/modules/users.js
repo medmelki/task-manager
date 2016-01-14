@@ -53,14 +53,14 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
 
         self.findCurrentUser();
 
-        self.findUserByUsername = function () {
-            UserService.findUserByUsername()
+        self.findUserByUsername = function (username) {
+            UserService.findUserByUsername(username)
                 .then(
                     function (d) {
                         self.users = d;
                     },
                     function (errResponse) {
-                        console.error('Error while fetching Users');
+                        console.error('Error while fetching user');
                     }
                 );
         };
@@ -136,13 +136,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         self.populateModal = function (user) {
             $rootScope.updateMode = 1;
             self.reset();
-            self.user.username = user.username;
-            self.user.password = user.password;
-            self.user.companyId = user.companyId;
-            self.user.phone = user.phone;
-            self.user.address = user.address;
-            self.user.email = user.email;
-            self.user.roles = user.roles;
+            self.user = user;
         };
 
         self.setAddMode = function () {
@@ -151,7 +145,6 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
 
         $scope.setActiveRole = function (x) {
             $scope.activeRole = x;
-            console.log("activeRole set to " + $scope.activeRole);
         };
 
         $scope.$watch('documents', function () {

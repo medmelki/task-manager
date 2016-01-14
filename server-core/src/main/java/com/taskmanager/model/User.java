@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -37,9 +38,9 @@ public class User implements Serializable, UserDetails {
     private String address;
     private String email;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    List<Picture> pictures;
+    Set<Picture> pictures = new LinkedHashSet<>();
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    List<Document> documents;
+    Set<Document> documents;
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
     private GPS gps;
@@ -145,19 +146,19 @@ public class User implements Serializable, UserDetails {
         this.email = email;
     }
 
-    public List<Picture> getPictures() {
+    public Set<Picture> getPictures() {
         return pictures;
     }
 
-    public void setPictures(List<Picture> pictures) {
+    public void setPictures(Set<Picture> pictures) {
         this.pictures = pictures;
     }
 
-    public List<Document> getDocuments() {
+    public Set<Document> getDocuments() {
         return documents;
     }
 
-    public void setDocuments(List<Document> documents) {
+    public void setDocuments(Set<Document> documents) {
         this.documents = documents;
     }
 
