@@ -93,10 +93,25 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                 );
         },
 
+        deletePicture: function (username, pictureId) {
+            return $http.delete(appURL + 'user/picture/' + pictureId, {
+                    withCredentials: true
+                })
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (errResponse) {
+                        console.error('Error while deleting picture');
+                        return $q.reject(errResponse);
+                    }
+                );
+        },
+
         getPicture: function (username) {
             return $http.get(appURL + 'user/picture/' + username, {
                     withCredentials: true,
-                    responseType : 'blob'
+                    responseType: 'blob'
                 })
                 .then(
                     function (response) {

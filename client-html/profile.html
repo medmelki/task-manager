@@ -175,7 +175,7 @@
                                 <!-- Post -->
                                 <div class="post" ng-repeat="p in ctrl.currentUser.pictures">
                                     <div class="user-block">
-                                        <button href='#' class='pull-right btn-box-tool'><i class='fa fa-times'></i>
+                                        <button href='#' ng-click="ctrl.deletePicture(ctrl.currentUser.username, p.id)" class='pull-right btn-box-tool'><i class='fa fa-times'></i>
                                         </button>
                                         <span class='description'>{{p.name}}</span>
                                     </div><!-- /.user-block -->
@@ -198,11 +198,11 @@
                                     <div ngf-no-file-drop>Picture Drag/Drop is not supported for this browser</div>
 
                                     <ul>
-                                        <li ng-repeat="p in ctrl.user.pictures" style="font:smaller">{{p.name}}
-                                        </li>
-                                        <li ng-repeat="p in pictures" style="font:smaller">{{p.name}} {{p.$error}}
-                                            {{p.$errorParam}}
-                                        </li>
+                                        <!--<li ng-repeat="pic in ctrl.user.pictures" style="font:smaller">{{pic.name}}-->
+                                        <!--</li>-->
+                                        <!--<li ng-repeat="p in pictures" style="font:smaller">{{p.name}} {{p.$error}}-->
+                                            <!--{{p.$errorParam}}-->
+                                        <!--</li>-->
                                     </ul>
                                 </div>
                             </div><!-- /.tab-pane -->

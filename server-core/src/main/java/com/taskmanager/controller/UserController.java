@@ -147,4 +147,14 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @RequestMapping(value = "/user/picture/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<User> deletePicture(@PathVariable String id) {
+
+        // TODO : add security aspect to verify it is the picture's owner who is calling the service
+        Picture picture = pictureService.read(Integer.parseInt(id));
+        pictureService.delete(picture);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

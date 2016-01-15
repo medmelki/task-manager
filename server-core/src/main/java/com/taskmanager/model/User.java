@@ -37,9 +37,9 @@ public class User implements Serializable, UserDetails {
     private String phone;
     private String address;
     private String email;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     Set<Picture> pictures = new LinkedHashSet<>();
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     Set<Document> documents;
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)

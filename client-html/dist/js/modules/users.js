@@ -126,6 +126,15 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             self.deleteUser(username);
         };
 
+        self.deletePicture = function (username, pictureId) {
+            UserService.deletePicture(username, pictureId)
+                .then(
+                    self.findCurrentUser,
+                    function (errResponse) {
+                        console.error('Error while deleting Picure.');
+                    }
+                );
+        };
 
         self.reset = function () {
             self.user = {username: null, password: '', address: '', email: ''};
@@ -184,7 +193,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         };
 
         $scope.$watch('pictures', function () {
-            $scope.uploadPicture($scope.pictures);
+            $scope.uploadPictures($scope.pictures);
         });
         $scope.$watch('picture', function () {
             if ($scope.picture != null) {
@@ -192,7 +201,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             }
         });
 
-        $scope.uploadPicture = function (pictures) {
+        $scope.uploadPictures = function (pictures) {
             if (pictures && pictures.length) {
                 for (var i = 0; i < pictures.length; i++) {
                     var picture = pictures[i];
@@ -211,6 +220,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                         }).success(function (data, status, headers, config) {
                             $timeout(function () {
                                 $scope.log = 'picture: ' + config.data.picture.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
+                                self.findCurrentUser();
                             });
                         });
                     }
