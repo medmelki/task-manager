@@ -259,23 +259,23 @@
                     </div>
 
                     <div class="form-group form-group-sm">
-                        <label class="col-sm-3 control-label">Documents</label>
+                    <label class="col-sm-3 control-label">Documents</label>
 
-                        <div ngf-drop ngf-select ng-model="documents" class="drop-box"
-                             ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-                             accept="'application/pdf'"
-                             ngf-pattern="'application/pdf'">Drop pdfs here or click to upload
-                        </div>
-                        <div ngf-no-file-drop>Document Drag/Drop is not supported for this browser</div>
-
-                        <ul>
-                            <li ng-repeat="d in ctrl.user.documents" style="font:smaller">{{d.name}}
-                            </li>
-                            <li ng-repeat="d in documents" style="font:smaller">{{d.name}} {{d.$error}}
-                                {{d.$errorParam}}
-                            </li>
-                        </ul>
+                    <div ngf-drop ngf-select ng-model="documents" class="drop-box"
+                         ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+                         accept="'application/pdf'"
+                         ngf-pattern="'application/pdf'">Drop pdfs here or click to upload
                     </div>
+                    <div ngf-no-file-drop>Document Drag/Drop is not supported for this browser</div>
+
+                    <ul>
+                        <li ng-repeat="d in ctrl.user.documents" style="font:smaller">{{d.name}}
+                        </li>
+                        <li ng-repeat="d in documents" style="font:smaller">{{d.name}} {{d.$error}}
+                            {{d.$errorParam}}
+                        </li>
+                    </ul>
+                </div>
 
                 </form>
                 <div class="modal-footer">

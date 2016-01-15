@@ -200,7 +200,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                         Upload.upload({
                             url: appURL + 'user/pictures/upload/',
                             data: {
-                                username: self.user.username,
+                                username: self.user.username ? self.user.username : self.currentUser.username,
                                 picture: picture
                             },
                             withCredentials: true
