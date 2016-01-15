@@ -97,13 +97,25 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
 
         self.findAllUsers();
 
-        self.submit = function () {
+        self.submit = function (user, isUpdateMode) {
+            $rootScope.updateMode = isUpdateMode;
+            var temp = user;
+            user = {};
+            user.username = temp.username;
+            user.password = temp.password;
+            user.email = temp.email;
+            user.companyId = temp.companyId;
+            user.address = temp.address;
+            user.pictures = temp.pictures;
+            user.documents = temp.documents;
+            user.tasks = temp.tasks;
+            user.gps = temp.gps;
             if ($rootScope.updateMode === 0) {
-                console.log('Saving New User', self.user);
-                self.createUser(self.user);
+                console.log('Saving New User', user);
+                self.createUser(user);
             } else {
-                self.updateUser(self.user);
-                console.log('User updated with username ', self.user.username);
+                self.updateUser(user);
+                console.log('User updated with username ', user.username);
             }
             self.reset();
         };
