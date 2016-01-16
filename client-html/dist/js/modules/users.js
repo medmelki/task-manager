@@ -119,6 +119,9 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                 self.updateUser(user);
                 console.log('User updated with username ', user.username);
             }
+            if ($scope.file != null) {
+                $scope.uploadProfilePicture($scope.file);
+            }
             self.reset();
         };
 
@@ -212,12 +215,6 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         $scope.$watch('picture', function () {
             if ($scope.picture != null) {
                 $scope.pictures = [$scope.picture];
-            }
-        });
-
-        $scope.$watch('file', function () {
-            if ($scope.file != null) {
-                $scope.uploadProfilePicture($scope.file);
             }
         });
 

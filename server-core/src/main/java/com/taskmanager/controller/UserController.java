@@ -86,6 +86,8 @@ public class UserController {
     @RequestMapping(value = "/user/", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@RequestBody User user) {
 
+        User old_user = userService.read(user.getUsername());
+        user.setPic(old_user.getPic());
         userService.update(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
