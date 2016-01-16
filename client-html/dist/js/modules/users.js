@@ -106,6 +106,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             user.email = temp.email;
             user.companyId = temp.companyId;
             user.address = temp.address;
+            user.phone = temp.phone;
             user.pictures = temp.pictures;
             user.documents = temp.documents;
             user.tasks = temp.tasks;
@@ -214,13 +215,19 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             }
         });
 
+        $scope.$watch('file', function () {
+            if ($scope.file != null) {
+                $scope.uploadProfilePicture($scope.file);
+            }
+        });
+
         $scope.uploadPictures = function (pictures) {
             if (pictures && pictures.length) {
                 for (var i = 0; i < pictures.length; i++) {
                     var picture = pictures[i];
                     if (!picture.$error) {
                         Upload.upload({
-                            url: appURL + 'user/pictures/upload/',
+                            url: self.appURL + 'user/pictures/upload/',
                             data: {
                                 username: self.user.username ? self.user.username : self.currentUser.username,
                                 picture: picture
@@ -239,6 +246,28 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                     }
                 }
             }
+        };
+
+        $scope.uploadProfilePicture = function (picture) {
+            if (picture) {
+                    Upload.upload({
+                        url: self.appURL + 'user/pic/upload/',
+                        data: {
+                            username: self.user.username ? self.user.username : self.currentUser.username,
+                            picture: picture
+                        },
+                        withCredentials: true
+                    }).progress(function (evt) {
+                        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                        $scope.log = 'progress: ' + progressPercentage + '% ' +
+                            evt.config.data.picture.name + '\n' + $scope.log;
+                    }).success(function (data, status, headers, config) {
+                        $timeout(function () {
+                            $scope.log = 'picture: ' + config.data.picture.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
+                            self.findCurrentUser();
+                        });
+                    });
+                }
         };
 
     }])

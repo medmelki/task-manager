@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -37,6 +38,8 @@ public class User implements Serializable, UserDetails {
     private String phone;
     private String address;
     private String email;
+    @Lob
+    private byte[] pic;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     Set<Picture> pictures = new LinkedHashSet<>();
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
@@ -169,4 +172,13 @@ public class User implements Serializable, UserDetails {
     public void setGps(GPS gps) {
         this.gps = gps;
     }
+
+    public byte[] getPic() {
+        return pic;
+    }
+
+    public void setPic(byte[] pic) {
+        this.pic = pic;
+    }
+
 }

@@ -109,7 +109,7 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
         },
 
         getPicture: function (username) {
-            return $http.get(appURL + 'user/picture/' + username, {
+            return $http.get(appURL + 'user/pic/' + username, {
                     withCredentials: true,
                     responseType: 'blob'
                 })

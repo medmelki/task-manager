@@ -130,17 +130,27 @@ public class UserController {
         pictureService.create(pic);
     }
 
-    //    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/user/picture/{username}", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getPicture(@PathVariable String username) throws IOException {
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/user/pic/upload/")
+    public void uploadProfilePicture(@RequestParam("picture") MultipartFile picture, @RequestParam("username") String username) throws IOException {
+
+        User user = userService.read(username);
+        if (!picture.isEmpty()) {
+            user.setPic(picture.getBytes());
+        }
+        userService.update(user);
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/user/pic/{username}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable String username) throws IOException {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         if (username.equals(name)) {
             User user = userService.read(username);
-            Picture picture = (Picture) user.getPictures().toArray()[0];
-            if (picture != null) {
-                return new ResponseEntity<>(picture.getData(), HttpStatus.OK);
+            if (user.getPic() != null) {
+                return new ResponseEntity<>(user.getPic(), HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
