@@ -98,6 +98,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         self.findAllUsers();
 
         self.submit = function (user, isUpdateMode) {
+            console.log(isUpdateMode);
             $rootScope.updateMode = isUpdateMode;
             var temp = user;
             user = {};

@@ -1,6 +1,7 @@
 package com.taskmanager.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,18 +31,9 @@ public class Node implements Serializable {
     private String email;
     private String contact;
     private String address;
-    @OneToMany(mappedBy = "node")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "node")
     private List<Note> notes;
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    @ManyToMany(mappedBy = "nodes")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "nodes")
     private List<Task> tasks;
 
     public Node() {
@@ -102,4 +94,13 @@ public class Node implements Serializable {
     public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 }

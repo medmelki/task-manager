@@ -10,7 +10,6 @@ import com.taskmanager.service.IRoleService;
 import com.taskmanager.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 @RestController
@@ -87,7 +85,8 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody User user) {
 
         User old_user = userService.read(user.getUsername());
-        user.setPic(old_user.getPic());
+        if (old_user.getPic() != null)
+            user.setPic(old_user.getPic());
         userService.update(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
