@@ -11,7 +11,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             {"name": "ROLE_SUPERADMIN", "description": null}];
         $rootScope.updateMode = 0;
 
-        var appURL = "http://localhost:8080/";
+        self.appURL = "http://localhost:8080/";
 
         self.getPicture = function (username) {
             UserService.getPicture(username)
@@ -110,6 +110,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             user.documents = temp.documents;
             user.tasks = temp.tasks;
             user.gps = temp.gps;
+            user.roles = temp.roles;
             if ($rootScope.updateMode === 0) {
                 console.log('Saving New User', user);
                 self.createUser(user);
