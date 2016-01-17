@@ -54,7 +54,7 @@ public class CORSFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String origin = request.getHeader("Origin");
-        if (origin != null && regex.matcher(origin).matches()) {
+//        if (origin != null && regex.matcher(origin).matches()) {
             response.addHeader("Access-Control-Allow-Origin", origin);
             response.addHeader("Access-Control-Allow-Headers", allowHeaders);
             response.addHeader("Access-Control-Expose-Headers", exposeHeaders);
@@ -63,7 +63,7 @@ public class CORSFilter extends OncePerRequestFilter {
                 response.addHeader("Access-Control-Max-Age", deltaSeconds);
             }
             response.addHeader("Access-Control-Allow-Credentials", "true");
-        }
+//        }
         filterChain.doFilter(request, response);
     }
 }
