@@ -1,5 +1,7 @@
 package com.taskmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,15 +26,6 @@ public class Pack implements Serializable {
     private String color;
     private String vehicle_type;
     private Double cost;
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
     @ManyToMany(mappedBy = "packs", fetch = FetchType.EAGER)
     private List<Task> tasks;
 
@@ -94,4 +87,14 @@ public class Pack implements Serializable {
     public void setCost(Double cost) {
         this.cost = cost;
     }
+
+    @JsonIgnore
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.taskmanager.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,11 +17,11 @@ public class Task implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<User> users;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Node> nodes;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Pack> packs;
 
     public Task() {

@@ -1,5 +1,6 @@
 package com.taskmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,17 +48,9 @@ public class User implements Serializable, UserDetails {
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
     private GPS gps;
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private List<Task> tasks;
+
 
     public User() {
     }
@@ -180,5 +173,15 @@ public class User implements Serializable, UserDetails {
     public void setPic(byte[] pic) {
         this.pic = pic;
     }
+
+    @JsonIgnore
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 
 }

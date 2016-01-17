@@ -1,5 +1,7 @@
 package com.taskmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -95,6 +97,7 @@ public class Node implements Serializable {
         this.notes = notes;
     }
 
+    @JsonIgnore
     public List<Task> getTasks() {
         return tasks;
     }

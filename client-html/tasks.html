@@ -17,7 +17,7 @@
     <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini" ng-app="rest-client" ng-controller="UserController as userCtrl">
-<div class="wrapper" ng-controller="PackController as ctrl">
+<div class="wrapper" ng-controller="TaskController as ctrl">
 
     <header class="main-header">
         <a href="#" class="logo">
@@ -31,14 +31,14 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- Pack Account: style can be found in dropdown.less -->
-                    <li class="dropdown pack user-menu">
+                    <!-- Task Account: style can be found in dropdown.less -->
+                    <li class="dropdown task user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img ng-src="{{userCtrl.cstantPicture}}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{userCtrl.currentUser.username}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- Pack image -->
+                            <!-- Task image -->
                             <li class="user-header">
                                 <img ng-src="{{userCtrl.cstantPicture}}" class="img-circle" alt="User Image">
 
@@ -77,8 +77,9 @@
 
                 <li><a href="nodes.html"><i class="glyphicon glyphicon-asterisk"></i> <span>Nodes</span></a>
                 </li>
-                <li class="active"><a href="packages.html"><i class="glyphicon glyphicon-gift"></i> <span>Packages</span></a></li>
-                <li><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a></li>
+                <li><a href="packages.html"><i class="glyphicon glyphicon-gift"></i>
+                    <span>Packages</span></a></li>
+                <li class="active"><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a></li>
 
                 <li class="header">Administration</li>
                 <li><a href="admin.html"><i class="glyphicon glyphicon-user"></i><span>Users</span></a></li>
@@ -95,10 +96,10 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>PACKAGES</h1>
+            <h1>TASKS</h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-                <li class="active">Packages</li>
+                <li class="active">Tasks</li>
             </ol>
         </section>
         <section class="content">
@@ -106,19 +107,16 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">Packages Data</h3>
+                            <h3 class="box-title">tasks Data</h3>
                         </div>
                         <div class="box-body">
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Size</th>
-                                    <th>Color</th>
-                                    <th>Vehicle Type</th>
-                                    <th>Cost</th>
+                                    <th>Users</th>
+                                    <th>Nodes</th>
+                                    <th>Packages</th>
                                     <th>
                                         <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                                                 data-target="#addModal" ng-click="ctrl.setAddMode()"><i
@@ -128,21 +126,30 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="pack in ctrl.packs">
-                                    <td ng-bind="pack.id"></td>
-                                    <td ng-bind="pack.name"></td>
-                                    <td ng-bind="pack.description"></td>
-                                    <td ng-bind="pack.size"></td>
-                                    <td ng-bind="pack.color"></td>
-                                    <td ng-bind="pack.vehicle_type"></td>
-                                    <td ng-bind="pack.cost"></td>
+                                <tr ng-repeat="task in ctrl.tasks">
+                                    <td ng-bind="task.id"></td>
+                                    <td>
+                                        <select ng-init="activeUser = task.users[0]" ng-model="activeUser"
+                                                ng-options="user.username for user in task.users"
+                                                ng-change="setActiveUser(task.users[activeUser - 1])"></select>
+                                    </td>
+                                    <td>
+                                        <select ng-init="activeNode = task.nodes[0]" ng-model="activeNode"
+                                                ng-options="node.id for node in task.nodes"
+                                                ng-change="setActiveNode(task.nodes[activeNode - 1])"></select>
+                                    </td>
+                                    <td>
+                                        <select ng-init="activePackage = task.packages[0]" ng-model="activePackage"
+                                                ng-options="package.id for package in task.packages"
+                                                ng-change="setActivePackage(task.packages[activePackage - 1])"></select>
+                                    </td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-xs"><i
-                                                class="glyphicon glyphicon-pencil" ng-click="ctrl.populateModal(pack)"
+                                                class="glyphicon glyphicon-pencil" ng-click="ctrl.populateModal(task)"
                                                 data-target="#addModal" data-toggle="modal"></i></button>
                                         <button type="button" class="btn btn-primary btn-xs"><i
                                                 class="glyphicon glyphicon-remove"
-                                                ng-click="ctrl.deletePack(pack.id)"></i></button>
+                                                ng-click="ctrl.deleteTask(task.id)"></i></button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -154,59 +161,32 @@
         </section>
     </div>
 
-    <!-- Add/Update Pack Modal -->
+    <!-- Add/Update Task Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h4><strong>Package Information</strong></h4>
+                    <h4><strong>Task Information</strong></h4>
 
                     <form class="form-horizontal col-sm-12 mod_form">
                         <br>
 
                         <div class="form-group form-group-sm">
-                            <label for="inputName" class="col-sm-3 control-label">Name</label>
+                            <label class="col-sm-3 control-label">Users</label>
 
                             <div class="col-sm-8">
-                                <input class="form-control" type="text" id="inputName"
-                                       ng-model="ctrl.pack.name">
+                                <select multiple ng-model="ctrl.task.users"
+                                        ng-options="user.username for user in userCtrl.users">
+                                </select>
                             </div>
                         </div>
-                        <div class="form-group form-group-sm">
-                            <label for="inputDescription" class="col-sm-3 control-label">Description</label>
+                        <div class="form-group form-group-sm" ng-controller="PackController as packCtrl">
+                            <label class="col-sm-3 control-label">Packages</label>
 
                             <div class="col-sm-8">
-                                <input class="form-control" type="text" id="inputDescription"
-                                       ng-model="ctrl.pack.description">
-                            </div>
-                        </div>
-                        <div class="form-group form-group-sm">
-                            <label for="inputSize" class="col-sm-3 control-label">Size</label>
-
-                            <div class="col-sm-8">
-                                <input class="form-control" type="number" id="inputSize" ng-model="ctrl.pack.size">
-                            </div>
-                        </div>
-                        <div class="form-group form-group-sm">
-                            <label for="inputColor" class="col-sm-3 control-label">Color</label>
-
-                            <div class="col-sm-8">
-                                <input class="form-control" type="text" id="inputColor" ng-model="ctrl.pack.color"/>
-                            </div>
-                        </div>
-                        <div class="form-group form-group-sm">
-                            <label for="inputVehicle" class="col-sm-3 control-label">Vehicle Type</label>
-
-                            <div class="col-sm-8">
-                                <input class="form-control" type="text" id="inputVehicle"
-                                       ng-model="ctrl.pack.vehicle_type"/>
-                            </div>
-                        </div>
-                        <div class="form-group form-group-sm">
-                            <label for="inputCost" class="col-sm-3 control-label">Cost</label>
-
-                            <div class="col-sm-8">
-                                <input class="form-control" type="number" id="inputCost" ng-model="ctrl.pack.cost">
+                                <select multiple ng-model="ctrl.task.packs"
+                                        ng-options="pack.id for pack in packCtrl.packs">
+                                </select>
                             </div>
                         </div>
 
@@ -216,7 +196,7 @@
                                 ng-click="ctrl.reset();">Cancel
                         </button>
                         <button type="button" class="btn btn-primary col-sm-offset-10" data-dismiss="modal"
-                                ng-click="ctrl.submit(ctrl.pack, updateMode)">SUBMIT
+                                ng-click="ctrl.submit(ctrl.task, updateMode)">SUBMIT
                         </button>
                     </div>
                 </div>
@@ -242,9 +222,13 @@
 <script src="plugins/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
 <script src="plugins/ng-file-upload.min.js"></script>
 <script src="dist/js/modules/login.js"></script>
+<script src="dist/js/services/tasks_service.js"></script>
 <script src="dist/js/services/packages_service.js"></script>
+<script src="dist/js/services/nodes_service.js"></script>
 <script src="dist/js/services/users_service.js"></script>
 <script src="dist/js/modules/users.js"></script>
+<script src="dist/js/modules/tasks.js"></script>
+<script src="dist/js/modules/nodes.js"></script>
 <script src="dist/js/modules/packs.js"></script>
 <script src="dist/js/modules/rooms.js"></script>
 <script src="dist/js/filters/roomsByDomain.js"></script>
