@@ -139,9 +139,9 @@
                                                 ng-change="setActiveNode(task.nodes[activeNode - 1])"></select>
                                     </td>
                                     <td>
-                                        <select ng-init="activePackage = task.packages[0]" ng-model="activePackage"
-                                                ng-options="package.id for package in task.packages"
-                                                ng-change="setActivePackage(task.packages[activePackage - 1])"></select>
+                                        <select ng-init="activePackage = task.packs[0]" ng-model="activePackage"
+                                                ng-options="package.id for package in task.packs"
+                                                ng-change="setActivePackage(task.packs[activePackage - 1])"></select>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-xs"><i
