@@ -72,6 +72,24 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
         self.submit = function (task, isUpdateMode) {
             $scope.updateMode = isUpdateMode;
             console.log($scope.updateMode);
+            var new_users = [];
+            for (var i = 0; i < task.users.length; i++) {
+                var temp = task.users[i];
+                task.users[i] = {};
+                task.users[i].username = temp.username;
+                task.users[i].password = temp.password;
+                task.users[i].email = temp.email;
+                task.users[i].companyId = temp.companyId;
+                task.users[i].address = temp.address;
+                task.users[i].phone = temp.phone;
+                task.users[i].pictures = temp.pictures;
+                task.users[i].documents = temp.documents;
+                task.users[i].tasks = temp.tasks;
+                task.users[i].gps = temp.gps;
+                task.users[i].roles = temp.roles;
+                new_users.push(task.users[i]);
+            }
+            task.users = new_users;
             if ($scope.updateMode === 0) {
                 console.log('Saving New Task', task);
                 self.createTask(task);
@@ -125,6 +143,6 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
         $scope.setActiveNode = function (x) {
             $scope.activeNode = x;
         };
-        
+
     }])
 ;
