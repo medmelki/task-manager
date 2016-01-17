@@ -68,7 +68,6 @@ app.controller('NodeController', ['$rootScope', '$scope', 'Upload', 'NodeService
         self.findAllNodes();
 
         self.submit = function (node, isUpdateMode) {
-            console.log(node);
             $scope.updateMode = isUpdateMode;
             console.log($scope.updateMode);
             if ($scope.updateMode === 0) {
@@ -100,9 +99,7 @@ app.controller('NodeController', ['$rootScope', '$scope', 'Upload', 'NodeService
         };
 
         self.reset = function () {
-            self.node = {id: null, password: '', address: '', email: ''};
-            $scope.documents = [];
-            $scope.pictures = [];
+            self.node = {};
         };
 
         self.populateModal = function (node) {

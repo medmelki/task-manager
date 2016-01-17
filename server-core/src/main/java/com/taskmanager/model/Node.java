@@ -1,13 +1,14 @@
 package com.taskmanager.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,13 +27,12 @@ public class Node implements Serializable {
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
     private GPS gps;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date time;
     private String email;
     private String contact;
     private String address;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "node")
-    private List<Note> notes;
+    private String notes;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "nodes")
     private List<Task> tasks;
 
@@ -87,11 +87,11 @@ public class Node implements Serializable {
         this.address = address;
     }
 
-    public List<Note> getNotes() {
+    public String getNotes() {
         return notes;
     }
 
-    public void setNotes(List<Note> notes) {
+    public void setNotes(String notes) {
         this.notes = notes;
     }
 
