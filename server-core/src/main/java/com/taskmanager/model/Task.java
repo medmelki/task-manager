@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -22,7 +21,7 @@ public class Task implements Serializable {
     @ManyToMany
     private List<Node> nodes;
     @ManyToMany
-    private List<Package> packages;
+    private List<Pack> packs;
 
     public Task() {
     }
@@ -51,11 +50,11 @@ public class Task implements Serializable {
         this.nodes = nodes;
     }
 
-    public List<Package> getPackages() {
-        return packages;
+    public List<Pack> getPacks() {
+        return packs;
     }
 
-    public void setPackages(List<Package> packages) {
-        this.packages = packages;
+    public void setPacks(List<Pack> packs) {
+        this.packs = packs;
     }
 }

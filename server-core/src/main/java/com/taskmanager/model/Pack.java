@@ -1,6 +1,7 @@
 package com.taskmanager.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "package")
-public class Package implements Serializable {
+public class Pack implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,10 +33,10 @@ public class Package implements Serializable {
         this.tasks = tasks;
     }
 
-    @ManyToMany(mappedBy = "packages")
+    @ManyToMany(mappedBy = "packs", fetch = FetchType.EAGER)
     private List<Task> tasks;
 
-    public Package() {
+    public Pack() {
     }
 
     public int getId() {
