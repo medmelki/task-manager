@@ -65,7 +65,7 @@
         <section class="sidebar">
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <input type="text" name="q" class="form-control" placeholder="Search by ID..." ng-model="activeNode">
               <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -128,7 +128,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="node in ctrl.nodes">
+                                <tr ng-repeat="node in ctrl.nodes | objectsById:activeNode">
                                     <td ng-bind="node.id"></td>
                                     <td ng-bind="node.time | date:'MM/dd/yyyy'"></td>
                                     <td ng-bind="node.time | date:'HH:mm'"></td>
@@ -239,7 +239,8 @@
 <script src="dist/js/modules/users.js"></script>
 <script src="dist/js/modules/nodes.js"></script>
 <script src="dist/js/modules/rooms.js"></script>
-<script src="dist/js/filters/roomsByDomain.js"></script>
+<script src="dist/js/filters/usersByUsername.js"></script>
+<script src="dist/js/filters/objectsById.js"></script>
 
 </body>
 </html>

@@ -67,7 +67,7 @@
         <section class="sidebar">
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <input type="text" name="q" class="form-control" placeholder="Search by Username..." ng-model="activeUser">
               <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -99,7 +99,7 @@
             <h1>USERS</h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Administration</a></li>
-                <li class="active">users</li>
+                <li class="active">Users</li>
             </ol>
         </section>
         <section class="content">
@@ -129,7 +129,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="user in ctrl.users">
+                                <tr ng-repeat="user in ctrl.users | usersByUsername:activeUser">
                                     <td ng-bind="user.username"></td>
                                     <td ng-bind="user.password"></td>
                                     <td ng-bind="user.companyId"></td>
@@ -300,7 +300,8 @@
 <script src="dist/js/services/users_service.js"></script>
 <script src="dist/js/modules/users.js"></script>
 <script src="dist/js/modules/rooms.js"></script>
-<script src="dist/js/filters/roomsByDomain.js"></script>
+<script src="dist/js/filters/usersByUsername.js"></script>
+<script src="dist/js/filters/objectsById.js"></script>
 
 </body>
 </html>
