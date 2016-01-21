@@ -1,0 +1,24 @@
+.drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    width: 200px;
+    text-align: center;
+    padding: 40px 10px;
+}
+
+.image-thumb, .image-thumb img {
+    position:relative;
+    /*width:60px;*/
+    /*height:50px;*/
+}
+.image-fav {
+    display:none;
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:15px;
+    height:15px;
+}
+.image-thumb:hover .image-fav {
+    display:block;
+}

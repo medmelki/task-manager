@@ -1,10 +1,12 @@
 package com.taskmanager.controller;
 
 import com.taskmanager.model.Document;
+import com.taskmanager.model.Hach;
 import com.taskmanager.model.Picture;
 import com.taskmanager.model.Role;
 import com.taskmanager.model.User;
 import com.taskmanager.service.IDocumentService;
+import com.taskmanager.service.IHachService;
 import com.taskmanager.service.IPictureService;
 import com.taskmanager.service.IRoleService;
 import com.taskmanager.service.IUserService;
@@ -38,6 +40,8 @@ public class UserController {
     private IDocumentService documentService;
     @Autowired
     private IPictureService pictureService;
+    @Autowired
+    private IHachService hachService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/user/", method = RequestMethod.GET)
@@ -166,6 +170,15 @@ public class UserController {
         Picture picture = pictureService.read(Integer.parseInt(id));
         pictureService.delete(picture);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
+    @RequestMapping(value = "/hash", method = RequestMethod.GET)
+    public ResponseEntity<Hach> getHash() {
+
+        Hach hach = new Hach();
+        hachService.create(hach);
+        return new ResponseEntity<>(hach, HttpStatus.OK);
     }
 
 }
