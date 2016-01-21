@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('UserService', ['$http', '$q', function ($http, $q) {
+app.factory('UserService', ['$window', '$http', '$q', function ($window, $http, $q) {
 
     var appURL = "http://localhost:8080/";
 
@@ -14,6 +14,9 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while fetching users');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -27,6 +30,9 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while fetching user');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -40,6 +46,9 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while fetching roles');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -56,6 +65,9 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while creating user');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -72,6 +84,9 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while updating user');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -88,6 +103,9 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while deleting user');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -103,6 +121,9 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while deleting picture');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -119,6 +140,9 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while retrieving picture');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -132,6 +156,9 @@ app.factory('UserService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while fetching current user');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );

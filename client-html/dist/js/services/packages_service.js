@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('PackService', ['$http', '$q', function ($http, $q) {
+app.factory('PackService', ['$window', '$http', '$q', function ($window, $http, $q) {
 
     var appURL = "http://localhost:8080/";
 
@@ -14,6 +14,9 @@ app.factory('PackService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while fetching packs');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -27,6 +30,9 @@ app.factory('PackService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while fetching pack');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -43,6 +49,9 @@ app.factory('PackService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while creating pack');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -59,6 +68,9 @@ app.factory('PackService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while updating pack');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -75,6 +87,9 @@ app.factory('PackService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while deleting pack');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );

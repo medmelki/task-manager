@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('NodeService', ['$http', '$q', function ($http, $q) {
+app.factory('NodeService', ['$window', '$http', '$q', function ($window, $http, $q) {
 
     var appURL = "http://localhost:8080/";
 
@@ -27,6 +27,9 @@ app.factory('NodeService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while fetching node');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -43,6 +46,9 @@ app.factory('NodeService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while creating node');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -59,6 +65,9 @@ app.factory('NodeService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while updating node');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -75,6 +84,9 @@ app.factory('NodeService', ['$http', '$q', function ($http, $q) {
                     },
                     function (errResponse) {
                         console.error('Error while deleting node');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
                         return $q.reject(errResponse);
                     }
                 );
