@@ -62,7 +62,8 @@
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a ng-href="{{ctrl.appURL + 'logout'}}" class="btn btn-default btn-flat">Sign out</a>
+                                    <a ng-href="{{ctrl.appURL + 'logout'}}" class="btn btn-default btn-flat">Sign
+                                        out</a>
                                 </div>
                             </li>
                         </ul>
@@ -88,7 +89,8 @@
 
                 <li><a href="nodes.html"><i class="glyphicon glyphicon-asterisk"></i> <span>Packs</span></a>
                 </li>
-                <li class="active"><a href="packages.html"><i class="glyphicon glyphicon-gift"></i> <span>Packages</span></a></li>
+                <li class="active"><a href="packages.html"><i class="glyphicon glyphicon-gift"></i>
+                    <span>Packages</span></a></li>
                 <li><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a></li>
 
                 <li class="header">Administration</li>
@@ -127,8 +129,10 @@
                     <!-- Profile Image -->
                     <div class="box box-primary">
                         <div class="box-body box-profile">
-                            <img class="profile-user-img img-responsive img-circle" ng-src="{{ctrl.cstantPicture}}"
-                                 alt="User profile picture">
+                            <img data-toggle="modal"
+                                 data-target="#addModal" class="profile-user-img img-responsive img-circle"
+                                 ng-src="{{ctrl.cstantPicture}}"
+                                 alt="User profile picture" ng-click="ctrl.setAddMode()">
 
                             <h3 class="profile-username text-center">{{ctrl.currentUser.username}}</h3>
 
@@ -176,7 +180,8 @@
                                 <!-- Post -->
                                 <div class="post" ng-repeat="p in ctrl.currentUser.pictures">
                                     <div class="user-block">
-                                        <button href='#' ng-click="ctrl.deletePicture(ctrl.currentUser.username, p.id)" class='pull-right btn-box-tool'><i class='fa fa-times'></i>
+                                        <button href='#' ng-click="ctrl.deletePicture(ctrl.currentUser.username, p.id)"
+                                                class='pull-right btn-box-tool'><i class='fa fa-times'></i>
                                         </button>
                                         <span class='description'>{{p.name}}</span>
                                     </div><!-- /.user-block -->
@@ -191,7 +196,8 @@
                                     </div>
                                 </div><!-- /.post -->
                                 <div class="row">
-                                    <div ngf-drop ngf-select ng-model="pictures" class="col-sm-8 col-sm-offset-4 drop-box"
+                                    <div ngf-drop ngf-select ng-model="pictures"
+                                         class="col-sm-8 col-sm-offset-4 drop-box"
                                          ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
                                          accept="'image/*'"
                                          ngf-pattern="'image/*'">Drop images here or click to upload
@@ -202,7 +208,7 @@
                                         <!--<li ng-repeat="pic in ctrl.user.pictures" style="font:smaller">{{pic.name}}-->
                                         <!--</li>-->
                                         <!--<li ng-repeat="p in pictures" style="font:smaller">{{p.name}} {{p.$error}}-->
-                                            <!--{{p.$errorParam}}-->
+                                        <!--{{p.$errorParam}}-->
                                         <!--</li>-->
                                     </ul>
                                 </div>
@@ -349,7 +355,9 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" ng-click="ctrl.submit(ctrl.currentUser, 1)" class="btn btn-primary">Edit</button>
+                                            <button type="submit" ng-click="ctrl.submit(ctrl.currentUser, 1)"
+                                                    class="btn btn-primary">Edit
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
@@ -365,6 +373,43 @@
 
         <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
     </footer>
+
+    <!-- Update Profile Picture Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content col-sm-6">
+                <div class="modal-body">
+                    <h4><strong>Profile Picture</strong></h4>
+
+                    <form class="form-horizontal col-sm-12 mod_form">
+                        <br>
+
+                        <div class="form-group form-group-sm col-sm-offset-1" style="clear:both">
+                            <label class="col-sm-3 control-label">Picture</label>
+
+                            <div ngf-drop ngf-select ng-model="file" class="drop-box"
+                                 ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
+                                 accept="'image/*'"
+                                 ngf-pattern="'image/*'">Drop image here or click to upload
+                            </div>
+                            <div ngf-no-file-drop>Picture Drag/Drop is not supported for this browser</div>
+                            <ul style="list-style:none;font:smaller">
+                                <li style="font:smaller">{{file.name}}</li>
+                            </ul>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default col-sm-offset-2" data-dismiss="modal"
+                                ng-click="ctrl.reset();">Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary col-sm-offset-10" data-dismiss="modal"
+                                ng-click="ctrl.submit(ctrl.currentUser, updateMode)">SUBMIT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div><!-- ./wrapper -->
 

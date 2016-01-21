@@ -212,6 +212,7 @@
                             <input class="form-control" type="text" id="inputPhone" ng-model="ctrl.user.phone">
                         </div>
                     </div>
+
                     <div class="form-group form-group-sm">
                         <label for="inputCompany" class="col-sm-3 control-label">CompanyID</label>
 
@@ -219,14 +220,7 @@
                             <input class="form-control" type="text" id="inputCompany" ng-model="ctrl.user.companyId">
                         </div>
                     </div>
-                    <div class="form-group form-group-sm">
-                        <label for="inputAddress" class="col-sm-3 control-label">Address</label>
 
-                        <div class="col-sm-8">
-                            <textarea class="form-control" type="text" id="inputAddress"
-                                      ng-model="ctrl.user.address"></textarea>
-                        </div>
-                    </div>
                     <div class="form-group form-group-sm">
                         <label for="inputEmail" class="col-sm-3 control-label">Email</label>
 
@@ -234,13 +228,18 @@
                             <input class="form-control" type="email" id="inputEmail" ng-model="ctrl.user.email">
                         </div>
                     </div>
-
-
                 </form>
                 <form class="form-horizontal col-sm-6 mod_form">
                     <br>
+                    <div class="form-group form-group-sm pull-left">
+                        <label for="inputAddress" class="col-sm-3 control-label">Address</label>
 
-                    <div class="form-group form-group-sm">
+                        <div class="col-sm-9">
+                            <textarea class="form-control" type="text" id="inputAddress"
+                                      ng-model="ctrl.user.address"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm" style="clear:both">
                         <label class="col-sm-3 control-label">Picture</label>
 
                         <div ngf-drop ngf-select ng-model="file" class="drop-box"
@@ -254,24 +253,24 @@
                         </ul>
                     </div>
 
-                    <div class="form-group form-group-sm">
-                        <label class="col-sm-3 control-label">Documents</label>
+                    <!--<div class="form-group form-group-sm">-->
+                        <!--<label class="col-sm-3 control-label">Documents</label>-->
 
-                        <div ngf-drop ngf-select ng-model="documents" class="drop-box"
-                             ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-                             accept="'application/pdf'"
-                             ngf-pattern="'application/pdf'">Drop pdfs here or click to upload
-                        </div>
-                        <div ngf-no-file-drop>Document Drag/Drop is not supported for this browser</div>
+                        <!--<div ngf-drop ngf-select ng-model="documents" class="drop-box"-->
+                             <!--ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"-->
+                             <!--accept="'application/pdf'"-->
+                             <!--ngf-pattern="'application/pdf'">Drop pdfs here or click to upload-->
+                        <!--</div>-->
+                        <!--<div ngf-no-file-drop>Document Drag/Drop is not supported for this browser</div>-->
 
-                        <ul>
-                            <li ng-repeat="d in ctrl.user.documents" style="font:smaller">{{d.name}}
-                            </li>
-                            <li ng-repeat="d in documents" style="font:smaller">{{d.name}} {{d.$error}}
-                                {{d.$errorParam}}
-                            </li>
-                        </ul>
-                    </div>
+                        <!--<ul>-->
+                            <!--<li ng-repeat="d in ctrl.user.documents" style="font:smaller">{{d.name}}-->
+                            <!--</li>-->
+                            <!--<li ng-repeat="d in documents" style="font:smaller">{{d.name}} {{d.$error}}-->
+                                <!--{{d.$errorParam}}-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
 
                 </form>
                 <div class="modal-footer">
