@@ -21,6 +21,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                     },
                     function (errResponse) {
                         console.error('Error while getting Picture');
+                        self.cstantPicture = 'dist/img/avatar5.png';
                     }
                 );
         };
