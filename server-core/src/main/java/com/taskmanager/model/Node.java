@@ -30,8 +30,7 @@ public class Node implements Serializable {
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
     private GPS gps;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    private Long time;
     private String email;
     private String contact;
     private String address;
@@ -58,11 +57,11 @@ public class Node implements Serializable {
         this.gps = gps;
     }
 
-    public Date getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 

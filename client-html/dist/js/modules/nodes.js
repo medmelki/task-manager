@@ -68,6 +68,7 @@ app.controller('NodeController', ['$rootScope', '$scope', 'Upload', 'NodeService
         self.findAllNodes();
 
         self.submit = function (node, isUpdateMode) {
+            node.time = new Date(node.time).getTime();
             $scope.updateMode = isUpdateMode;
             console.log($scope.updateMode);
             if ($scope.updateMode === 0) {
