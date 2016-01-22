@@ -180,6 +180,15 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group form-group-sm" ng-controller="NodeController as nodeCtrl">
+                            <label class="col-sm-3 control-label">Nodes</label>
+
+                            <div class="col-sm-8">
+                                <select multiple ng-model="ctrl.task.nodes"
+                                        ng-options="node.id for node in nodeCtrl.nodes">
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group form-group-sm" ng-controller="PackController as packCtrl">
                             <label class="col-sm-3 control-label">Packages</label>
 

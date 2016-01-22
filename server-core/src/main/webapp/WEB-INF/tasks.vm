@@ -16,13 +16,10 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-##<script>
-##        $rootScope.hash = UserService.name;
-##</script>
 <body class="hold-transition skin-blue sidebar-mini" ng-app="rest-client" ng-controller="UserController as userCtrl">
 <div class="wrapper" ng-controller="TaskController as ctrl">
 
-    <header class="main-header" ng-init="$rootScope.hash=$hach">
+    <header class="main-header">
         <a href="#" class="logo">
             <span class="logo-mini"><b>T</b>Mgr</span>
             <span class="logo-lg"><b>Task</b>Manager</span>
@@ -31,36 +28,6 @@
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
-
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                    <!-- Task Account: style can be found in dropdown.less -->
-                    <li class="dropdown task user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img ng-src="{{userCtrl.cstantPicture}}" class="user-image" alt="User Image">
-                            <span class="hidden-xs">{{userCtrl.currentUser.username}}</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- Task image -->
-                            <li class="user-header">
-                                <img ng-src="{{userCtrl.cstantPicture}}" class="img-circle" alt="User Image">
-
-                                <p>
-                                    {{userCtrl.currentUser.username}}
-                            </li>
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="profile.html" class="btn btn-default btn-flat">Profile</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
         </nav>
     </header>
 
@@ -83,16 +50,6 @@
                 <li><a href="packages.html"><i class="glyphicon glyphicon-gift"></i>
                     <span>Packages</span></a></li>
                 <li class="active"><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a></li>
-
-                <li class="header">Administration</li>
-                <li><a href="admin.html"><i class="glyphicon glyphicon-user"></i><span>Users</span></a></li>
-                <!--<li class="treeview">
-                  <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
-                  <ul class="treeview-menu">
-                    <li><a href="#">Link in level 2</a></li>
-                    <li><a href="#">Link in level 2</a></li>
-                  </ul>
-                </li>-->
             </ul>
         </section>
     </aside>
@@ -180,6 +137,15 @@
                             <div class="col-sm-8">
                                 <select multiple ng-model="ctrl.task.users"
                                         ng-options="user.username for user in userCtrl.users">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm" ng-controller="NodeController as nodeCtrl">
+                            <label class="col-sm-3 control-label">Nodes</label>
+
+                            <div class="col-sm-8">
+                                <select multiple ng-model="ctrl.task.nodes"
+                                        ng-options="node.id for node in nodeCtrl.nodes">
                                 </select>
                             </div>
                         </div>
