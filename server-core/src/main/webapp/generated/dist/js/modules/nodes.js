@@ -1,14 +1,14 @@
 'use strict';
 
-app.controller('NodeController', ['$rootScope', '$scope', 'Upload', 'NodeService',
-    function ($rootScope, $scope, Upload, NodeService) {
+app.controller('NodeController', ['$rootScope', '$scope', 'Upload', 'NodeService','$location',
+    function ($rootScope, $scope, Upload, NodeService, $location) {
 
         var self = this;
         self.node = {};
         self.nodes = [];
         $scope.updateMode = 0;
 
-        self.appURL = "http://localhost:8080/";
+        self.appURL = $location.absUrl() + '/';
 
         self.findAllNodes = function () {
             NodeService.findAllNodes()

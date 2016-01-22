@@ -29,6 +29,8 @@ public class HachController {
             // if hash is in database
             for (Hach hachElt : hachs) {
                 if (hachElt.getHach().equals(hach)) {
+                    ModelAndView modelAndView = new ModelAndView("tasks");
+                    modelAndView.addObject("hach", hach);
                     return new ModelAndView("tasks");
                 }
             }

@@ -16,10 +16,13 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+##<script>
+##        $rootScope.hash = UserService.name;
+##</script>
 <body class="hold-transition skin-blue sidebar-mini" ng-app="rest-client" ng-controller="UserController as userCtrl">
 <div class="wrapper" ng-controller="TaskController as ctrl">
 
-    <header class="main-header">
+    <header class="main-header" ng-init="$rootScope.hash=$hach">
         <a href="#" class="logo">
             <span class="logo-mini"><b>T</b>Mgr</span>
             <span class="logo-lg"><b>Task</b>Manager</span>

@@ -1,13 +1,13 @@
 'use strict';
 
-app.factory('NodeService', ['$window', '$http', '$q', function ($window, $http, $q) {
+app.factory('NodeService', ['$window', '$http', '$q', '$location', function ($window, $http, $q, $location) {
 
-    var appURL = "http://localhost:8080/";
+    var appURL = $location.absUrl() + '/';
 
     return {
 
         findAllNodes: function () {
-            return $http.get(appURL + 'node/', {withCredentials: true})
+            return $http.get(appURL + 'node/')
                 .then(
                     function (response) {
                         return response.data;
@@ -20,7 +20,7 @@ app.factory('NodeService', ['$window', '$http', '$q', function ($window, $http, 
         },
 
         findNodeById: function (id) {
-            return $http.get(appURL + 'node/' + id, {withCredentials: true})
+            return $http.get(appURL + 'node/' + id)
                 .then(
                     function (response) {
                         return response.data;

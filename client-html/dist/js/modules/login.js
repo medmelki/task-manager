@@ -2,7 +2,7 @@
 
     var app = angular.module('login', []);
 
-    app.controller('loginController', function ($rootScope, $scope, $http, $q, $window) {
+    app.controller('loginController', function ($rootScope, $scope, $http, $q, $window, $location) {
 
         var serverURL = "http://localhost:8080";
 

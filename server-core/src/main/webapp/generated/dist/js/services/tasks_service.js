@@ -1,13 +1,13 @@
 'use strict';
 
-app.factory('TaskService', ['$window', '$http', '$q', function ($window, $http, $q) {
+app.factory('TaskService', ['$window', '$http', '$q', '$location',  function ($window, $http, $q, $location) {
 
-    var appURL = "http://localhost:8080/";
+    var appURL = $location.absUrl() + '/';
 
     return {
 
         findAllTasks: function () {
-            return $http.get(appURL + 'task/', {withCredentials: true})
+            return $http.get(appURL + 'task/')
                 .then(
                     function (response) {
                         return response.data;
@@ -23,7 +23,7 @@ app.factory('TaskService', ['$window', '$http', '$q', function ($window, $http, 
         },
 
         findTaskById: function (id) {
-            return $http.get(appURL + 'task/' + id, {withCredentials: true})
+            return $http.get(appURL + 'task/' + id)
                 .then(
                     function (response) {
                         return response.data;

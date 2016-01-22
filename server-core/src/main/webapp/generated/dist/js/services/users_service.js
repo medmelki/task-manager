@@ -1,13 +1,13 @@
 'use strict';
 
-app.factory('UserService', ['$window', '$http', '$q', function ($window, $http, $q) {
+app.factory('UserService', ['$window', '$http', '$q', '$location', function ($window, $http, $q, $location) {
 
-    var appURL = "http://localhost:8080/";
+    var appURL = $location.absUrl() + '/';
 
     return {
 
         findAllUsers: function () {
-            return $http.get(appURL + 'user/', {withCredentials: true})
+            return $http.get(appURL + 'user/')
                 .then(
                     function (response) {
                         return response.data;
@@ -23,7 +23,7 @@ app.factory('UserService', ['$window', '$http', '$q', function ($window, $http, 
         },
 
         findUserByUsername: function (username) {
-            return $http.get(appURL + 'user/' + username, {withCredentials: true})
+            return $http.get(appURL + 'user/' + username)
                 .then(
                     function (response) {
                         return response.data;
@@ -39,7 +39,7 @@ app.factory('UserService', ['$window', '$http', '$q', function ($window, $http, 
         },
 
         findAllRoles: function () {
-            return $http.get(appURL + 'role/', {withCredentials: true})
+            return $http.get(appURL + 'role/')
                 .then(
                     function (response) {
                         return response.data;
@@ -149,7 +149,7 @@ app.factory('UserService', ['$window', '$http', '$q', function ($window, $http, 
         },
 
         getCurrentUser: function () {
-            return $http.get(appURL + 'user/current', {withCredentials: true})
+            return $http.get(appURL + 'user/current')
                 .then(
                     function (response) {
                         return response.data;

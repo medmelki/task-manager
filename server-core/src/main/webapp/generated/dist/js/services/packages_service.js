@@ -1,13 +1,13 @@
 'use strict';
 
-app.factory('PackService', ['$window', '$http', '$q', function ($window, $http, $q) {
+app.factory('PackService', ['$window', '$http', '$q', '$location', function ($window, $http, $q, $location) {
 
-    var appURL = "http://localhost:8080/";
+    var appURL = $location.absUrl() + '/';
 
     return {
 
         findAllPacks: function () {
-            return $http.get(appURL + 'pack/', {withCredentials: true})
+            return $http.get(appURL + 'pack/')
                 .then(
                     function (response) {
                         return response.data;
@@ -23,7 +23,7 @@ app.factory('PackService', ['$window', '$http', '$q', function ($window, $http, 
         },
 
         findPackById: function (id) {
-            return $http.get(appURL + 'pack/' + id, {withCredentials: true})
+            return $http.get(appURL + 'pack/' + id)
                 .then(
                     function (response) {
                         return response.data;

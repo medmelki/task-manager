@@ -1,13 +1,13 @@
 'use strict';
 
-app.factory('HashService', ['$window', '$http', '$q', function ($window, $http, $q) {
+app.factory('HashService', ['$window', '$http', '$q','$location', function ($window, $http, $q, $location) {
 
-    var appURL = "http://localhost:8080/";
+    var appURL = $location.absUrl() + '/';
 
     return {
 
         getHash: function () {
-            return $http.get(appURL + 'hash', {withCredentials: true})
+            return $http.get(appURL + 'hash')
                 .then(
                     function (response) {
                         return response.data;
