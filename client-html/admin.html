@@ -121,7 +121,6 @@
                                 <thead>
                                 <tr>
                                     <th>Username</th>
-                                    <th>Password</th>
                                     <th>Company ID</th>
                                     <th>Phone</th>
                                     <th>Address</th>
@@ -138,7 +137,6 @@
                                 <tbody>
                                 <tr ng-repeat="user in ctrl.users | usersByUsername:activeUser">
                                     <td ng-bind="user.username"></td>
-                                    <td ng-bind="user.password"></td>
                                     <td ng-bind="user.companyId"></td>
                                     <td ng-bind="user.phone"></td>
                                     <td ng-bind="user.address"></td>
