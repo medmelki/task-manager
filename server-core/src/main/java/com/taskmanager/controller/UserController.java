@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -90,6 +90,13 @@ public class UserController {
     @RequestMapping(value = "/user/", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@RequestBody User user) {
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        for (GrantedAuthority authority : auth.getAuthorities())
+            if (authority.getAuthority().equals("ROLE_USER")) {
+                if (!auth.getName().equals(user.getUsername())) {
+                    return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+                }
+            }
         User old_user = userService.read(user.getUsername());
         if (old_user.getPic() != null)
             user.setPic(old_user.getPic());
