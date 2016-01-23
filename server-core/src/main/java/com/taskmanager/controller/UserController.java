@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -179,6 +181,28 @@ public class UserController {
         Hach hach = new Hach();
         hachService.create(hach);
         return new ResponseEntity<>(hach, HttpStatus.OK);
+    }
+
+    @PostConstruct
+    public void initData() {
+        // init default admin
+        User admin = new User();
+        admin.setUsername("admin");
+        admin.setPassword("admin");
+        Role role_admin = new Role();
+        role_admin.setName("ROLE_ADMIN");
+        admin.getRoles().add(role_admin);
+        userService.create(admin);
+
+
+        // init default superadmin
+        User superadmin = new User();
+        superadmin.setUsername("superadmin");
+        superadmin.setPassword("superadmin");
+        Role role_superadmin = new Role();
+        role_admin.setName("ROLE_SUPERADMIN");
+        superadmin.getRoles().add(role_superadmin);
+        userService.create(superadmin);
     }
 
 }
