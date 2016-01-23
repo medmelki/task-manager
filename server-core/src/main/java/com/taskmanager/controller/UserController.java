@@ -188,21 +188,24 @@ public class UserController {
         // init default admin
         User admin = new User();
         admin.setUsername("admin");
-        admin.setPassword("admin");
-        Role role_admin = new Role();
-        role_admin.setName("ROLE_ADMIN");
-        admin.getRoles().add(role_admin);
-        userService.create(admin);
-
+        if (userService.read("admin") == null) {
+            admin.setPassword("admin");
+            Role role_admin = new Role();
+            role_admin.setName("ROLE_ADMIN");
+            admin.getRoles().add(role_admin);
+            userService.create(admin);
+        }
 
         // init default superadmin
         User superadmin = new User();
         superadmin.setUsername("superadmin");
-        superadmin.setPassword("superadmin");
-        Role role_superadmin = new Role();
-        role_admin.setName("ROLE_SUPERADMIN");
-        superadmin.getRoles().add(role_superadmin);
-        userService.create(superadmin);
+        if (userService.read("superadmin") == null) {
+            superadmin.setPassword("superadmin");
+            Role role_superadmin = new Role();
+            role_superadmin.setName("ROLE_SUPERADMIN");
+            superadmin.getRoles().add(role_superadmin);
+            userService.create(superadmin);
+        }
     }
 
 }
