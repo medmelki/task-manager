@@ -40,7 +40,7 @@
             deferred.promise.then(
                 function () {
                     $rootScope.$broadcast('login', username);
-                    $window.location.href = 'admin.html';
+                    $window.location.href = 'tasks.html';
                 },
 
                 function () {

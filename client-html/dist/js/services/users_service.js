@@ -14,9 +14,6 @@ app.factory('UserService', ['$window', '$http', '$q', function ($window, $http, 
                     },
                     function (errResponse) {
                         console.error('Error while fetching users');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );

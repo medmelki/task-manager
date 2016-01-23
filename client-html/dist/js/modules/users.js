@@ -12,6 +12,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         $rootScope.updateMode = 0;
 
         self.isSuperAdmin = false;
+        self.isAdmin = false;
 
 
         self.appURL = "http://localhost:8080/";
@@ -49,6 +50,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                         self.currentUser = d;
                         self.getPicture(self.currentUser.username);
                         self.isItSuperAdmin(self.currentUser.roles);
+                        self.isItAdmin(self.currentUser.roles);
                     },
                     function (errResponse) {
                         console.error('Error while fetching current user');
@@ -85,6 +87,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                 .then(
                     self.findAllUsers,
                     self.isItSuperAdmin(self.currentUser.roles),
+                    self.isItAdmin(self.currentUser.roles),
                     function (errResponse) {
                         console.error('Error while updating User.');
                     }
@@ -278,6 +281,15 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             for (var i = 0; i < roles.length; i++) {
                 if (roles[i].name === "ROLE_SUPERADMIN") {
                     self.isSuperAdmin = true;
+                    break;
+                }
+            }
+        };
+
+        self.isItAdmin = function (roles) {
+            for (var i = 0; i < roles.length; i++) {
+                if (roles[i].name === "ROLE_SUPERADMIN" || roles[i].name === "ROLE_ADMIN") {
+                    self.isAdmin = true;
                     break;
                 }
             }
