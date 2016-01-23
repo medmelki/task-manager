@@ -42,15 +42,15 @@
               </span>
                 </div>
             </form>
-            <ul class="sidebar-menu">
-                <li class="header">Dashboard</li>
-
-                <li><a href="nodes.html"><i class="glyphicon glyphicon-asterisk"></i> <span>Nodes</span></a>
-                </li>
-                <li><a href="packages.html"><i class="glyphicon glyphicon-gift"></i>
-                    <span>Packages</span></a></li>
-                <li class="active"><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a></li>
-            </ul>
+##            <ul class="sidebar-menu">
+##                <li class="header">Dashboard</li>
+##
+##                <li><a href="nodes.html"><i class="glyphicon glyphicon-asterisk"></i> <span>Nodes</span></a>
+##                </li>
+##                <li><a href="packages.html"><i class="glyphicon glyphicon-gift"></i>
+##                    <span>Packages</span></a></li>
+##                <li class="active"><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a></li>
+##            </ul>
         </section>
     </aside>
 
