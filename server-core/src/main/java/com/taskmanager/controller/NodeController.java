@@ -28,7 +28,7 @@ public class NodeController {
     @Autowired
     private INodeService nodeService;
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/node/", method = RequestMethod.GET)
     public ResponseEntity<List<Node>> listAll() {
 
@@ -39,14 +39,14 @@ public class NodeController {
         return new ResponseEntity<>(nodes, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/node/", method = RequestMethod.POST)
     public ResponseEntity<Void> addNode(@RequestBody Node node) {
         nodeService.create(node);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/node/", method = RequestMethod.PUT)
     public ResponseEntity<Node> updateNode(@RequestBody Node node) {
 
@@ -54,7 +54,7 @@ public class NodeController {
         return new ResponseEntity<>(node, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/node/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Node> deleteNode(@PathVariable String id) {
 

@@ -20,7 +20,7 @@ public class PackController {
     @Autowired
     private IPackService packService;
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/pack/", method = RequestMethod.GET)
     public ResponseEntity<List<Pack>> listAll() {
 
@@ -31,14 +31,14 @@ public class PackController {
         return new ResponseEntity<>(packs, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/pack/", method = RequestMethod.POST)
     public ResponseEntity<Void> addPackage(@RequestBody Pack pack) {
         packService.create(pack);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/pack/", method = RequestMethod.PUT)
     public ResponseEntity<Pack> updatePackage(@RequestBody Pack pack) {
 
@@ -46,7 +46,7 @@ public class PackController {
         return new ResponseEntity<>(pack, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/pack/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Pack> deletePackage(@PathVariable String id) {
 
