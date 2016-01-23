@@ -14,9 +14,6 @@ app.factory('PackService', ['$window', '$http', '$q', '$location', function ($wi
                     },
                     function (errResponse) {
                         console.error('Error while fetching packs');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -30,9 +27,6 @@ app.factory('PackService', ['$window', '$http', '$q', '$location', function ($wi
                     },
                     function (errResponse) {
                         console.error('Error while fetching pack');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -49,9 +43,6 @@ app.factory('PackService', ['$window', '$http', '$q', '$location', function ($wi
                     },
                     function (errResponse) {
                         console.error('Error while creating pack');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -68,9 +59,6 @@ app.factory('PackService', ['$window', '$http', '$q', '$location', function ($wi
                     },
                     function (errResponse) {
                         console.error('Error while updating pack');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -87,9 +75,6 @@ app.factory('PackService', ['$window', '$http', '$q', '$location', function ($wi
                     },
                     function (errResponse) {
                         console.error('Error while deleting pack');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );

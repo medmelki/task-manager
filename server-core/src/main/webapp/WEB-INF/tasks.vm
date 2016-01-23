@@ -190,7 +190,6 @@
 <script src="dist/js/modules/rest-client.js"></script>
 <script src="plugins/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
 <script src="plugins/ng-file-upload.min.js"></script>
-<script src="dist/js/modules/login.js"></script>
 <script src="dist/js/services/tasks_service.js"></script>
 <script src="dist/js/services/packages_service.js"></script>
 <script src="dist/js/services/nodes_service.js"></script>

@@ -14,9 +14,6 @@ app.factory('TaskService', ['$window', '$http', '$q', '$location',  function ($w
                     },
                     function (errResponse) {
                         console.error('Error while fetching tasks');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -30,9 +27,6 @@ app.factory('TaskService', ['$window', '$http', '$q', '$location',  function ($w
                     },
                     function (errResponse) {
                         console.error('Error while fetching task');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -49,9 +43,6 @@ app.factory('TaskService', ['$window', '$http', '$q', '$location',  function ($w
                     },
                     function (errResponse) {
                         console.error('Error while creating task');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -68,9 +59,6 @@ app.factory('TaskService', ['$window', '$http', '$q', '$location',  function ($w
                     },
                     function (errResponse) {
                         console.error('Error while updating task');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -87,9 +75,6 @@ app.factory('TaskService', ['$window', '$http', '$q', '$location',  function ($w
                     },
                     function (errResponse) {
                         console.error('Error while deleting task');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );

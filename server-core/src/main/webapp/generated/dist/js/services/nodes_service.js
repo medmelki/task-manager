@@ -27,9 +27,6 @@ app.factory('NodeService', ['$window', '$http', '$q', '$location', function ($wi
                     },
                     function (errResponse) {
                         console.error('Error while fetching node');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -46,9 +43,6 @@ app.factory('NodeService', ['$window', '$http', '$q', '$location', function ($wi
                     },
                     function (errResponse) {
                         console.error('Error while creating node');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -65,9 +59,6 @@ app.factory('NodeService', ['$window', '$http', '$q', '$location', function ($wi
                     },
                     function (errResponse) {
                         console.error('Error while updating node');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
@@ -84,9 +75,6 @@ app.factory('NodeService', ['$window', '$http', '$q', '$location', function ($wi
                     },
                     function (errResponse) {
                         console.error('Error while deleting node');
-                        if (errResponse.status == 403) {
-                            $window.location = "login.html";
-                        }
                         return $q.reject(errResponse);
                     }
                 );
