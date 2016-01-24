@@ -171,13 +171,23 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/user/picture/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<User> deletePicture(@PathVariable String id) {
 
         // TODO : add security aspect to verify it is the picture's owner who is calling the service
         Picture picture = pictureService.read(Integer.parseInt(id));
         pictureService.delete(picture);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @RequestMapping(value = "/user/document/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<User> deleteDocument(@PathVariable String id) {
+
+        // TODO : add security aspect to verify it is the picture's owner who is calling the service
+        Document document = documentService.read(Integer.parseInt(id));
+        documentService.delete(document);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

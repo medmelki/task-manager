@@ -126,6 +126,24 @@ app.factory('UserService', ['$window', '$http', '$q', function ($window, $http, 
                 );
         },
 
+        deleteDocument: function (username, documentId) {
+            return $http.delete(appURL + 'user/document/' + documentId, {
+                    withCredentials: true
+                })
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (errResponse) {
+                        console.error('Error while deleting document');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
+                        return $q.reject(errResponse);
+                    }
+                );
+        },
+
         getPicture: function (username) {
             return $http.get(appURL + 'user/pic/' + username, {
                     withCredentials: true,

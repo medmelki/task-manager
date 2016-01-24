@@ -43,6 +43,13 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                 );
         };
 
+        self.downloadPdf = function (doc) {
+            var fileName = doc.name;
+            var file = new Blob([atob(doc.data)], {type: 'application/pdf'});
+            var fileURL = $sce.trustAsResourceUrl(window.URL.createObjectURL(file));
+            doc.url = fileURL;
+        };
+
         self.findCurrentUser = function () {
             UserService.getCurrentUser()
                 .then(
@@ -158,7 +165,17 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                 .then(
                     self.findCurrentUser,
                     function (errResponse) {
-                        console.error('Error while deleting Picure.');
+                        console.error('Error while deleting Picture.');
+                    }
+                );
+        };
+
+        self.deleteDocument = function (username, documentId) {
+            UserService.deletePicture(username, documentId)
+                .then(
+                    self.findCurrentUser,
+                    function (errResponse) {
+                        console.error('Error while deleting Document.');
                     }
                 );
         };
@@ -199,9 +216,9 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                     var document = documents[i];
                     if (!document.$error) {
                         Upload.upload({
-                            url: appURL + 'user/documents/upload/',
+                            url: self.appURL + 'user/documents/upload/',
                             data: {
-                                username: self.user.username,
+                                username: self.user.username ? self.user.username : self.currentUser.username,
                                 document: document
                             },
                             withCredentials: true
