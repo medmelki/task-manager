@@ -8,7 +8,7 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
         self.tasks = [];
         $scope.updateMode = 0;
 
-        self.appURL = "http://localhost:8080/";
+        self.appURL = "http://52.33.209.86:8080/task-manager-server-1.0/";
 
         self.findAllTasks = function () {
             TaskService.findAllTasks()

@@ -15,7 +15,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         self.isAdmin = false;
 
 
-        self.appURL = "http://localhost:8080/";
+        self.appURL = "http://52.33.209.86:8080/task-manager-server-1.0/";
 
         self.getPicture = function (username) {
             UserService.getPicture(username)

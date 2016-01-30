@@ -4,7 +4,7 @@
 
     app.controller('loginController', function ($rootScope, $scope, $http, $q, $window, $location) {
 
-        var serverURL = "http://localhost:8080";
+        var serverURL = "http://52.33.209.86:8080/task-manager-server-1.0";
 
         $scope.login = function () {
 

@@ -2,7 +2,7 @@
 
 app.factory('PackService', ['$window', '$http', '$q', function ($window, $http, $q) {
 
-    var appURL = "http://localhost:8080/";
+    var appURL = "http://52.33.209.86:8080/task-manager-server-1.0/";
 
     return {
 
