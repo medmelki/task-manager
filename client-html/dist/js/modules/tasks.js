@@ -1,14 +1,14 @@
 'use strict';
 
-app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService',
-    function ($rootScope, $scope, Upload, TaskService) {
+app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService', 'CommonService',
+    function ($rootScope, $scope, Upload, TaskService, CommonService) {
 
         var self = this;
         self.task = {};
         self.tasks = [];
         $scope.updateMode = 0;
 
-        self.appURL = "http://localhost:8080/";
+        self.appURL = CommonService.appURL + '/';
 
         self.findAllTasks = function () {
             TaskService.findAllTasks()

@@ -1,10 +1,10 @@
 'use strict';
 
-app.controller('HashController', ['$rootScope', '$scope', 'Upload', 'HashService', '$timeout', '$sce',
-    function ($rootScope, $scope, Upload, HashService, $timeout, $sce) {
+app.controller('HashController', ['$rootScope', '$scope', 'Upload', 'HashService', 'CommonService',
+    function ($rootScope, $scope, Upload, HashService, CommonService) {
 
         var self = this;
-        var appURL = "http://localhost:8080/generated/";
+        var appURL = CommonService.appURL + '/generated/';
         self.hash = '';
 
         self.getHash = function () {

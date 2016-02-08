@@ -1,14 +1,14 @@
 'use strict';
 
-app.controller('PackController', ['$rootScope', '$scope', 'Upload', 'PackService',
-    function ($rootScope, $scope, Upload, PackService) {
+app.controller('PackController', ['$rootScope', '$scope', 'Upload', 'PackService', 'CommonService',
+    function ($rootScope, $scope, Upload, PackService, CommonService) {
 
         var self = this;
         self.pack = {};
         self.packs = [];
         $scope.updateMode = 0;
 
-        self.appURL = "http://localhost:8080/";
+        self.appURL = CommonService.appURL + '/';
 
         self.findAllPacks = function () {
             PackService.findAllPacks()

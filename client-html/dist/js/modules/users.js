@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService', '$timeout', '$sce',
-    function ($rootScope, $scope, Upload, UserService, $timeout, $sce) {
+app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService', '$timeout', '$sce', 'CommonService',
+    function ($rootScope, $scope, Upload, UserService, $timeout, $sce, CommonService) {
 
         var self = this;
         self.user = {username: '', password: '', address: '', email: ''};
@@ -15,7 +15,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         self.isAdmin = false;
 
 
-        self.appURL = "http://localhost:8080/";
+        self.appURL = CommonService.appURL + '/';
 
         self.getPicture = function (username) {
             UserService.getPicture(username)

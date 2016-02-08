@@ -2,9 +2,10 @@
 
     var app = angular.module('login', []);
 
-    app.controller('loginController', function ($rootScope, $scope, $http, $q, $window, $location) {
+    app.controller('loginController', ['$rootScope', '$scope', '$http', '$q', '$window', 'CommonService',
+        function ($rootScope, $scope, $http, $q, $window, CommonService) {
 
-        var serverURL = "http://localhost:8080";
+        var serverURL = CommonService.appURL;
 
         $scope.login = function () {
 
@@ -49,5 +50,5 @@
             );
         };
 
-    });
+    }]);
 })();
