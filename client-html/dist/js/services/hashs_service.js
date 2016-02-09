@@ -1,8 +1,8 @@
 'use strict';
 
-app.factory('HashService', ['$window', '$http', '$q', function ($window, $http, $q) {
+app.factory('HashService', ['$window', '$http', '$q', 'CommonService', function ($window, $http, $q, CommonService) {
 
-    var appURL = "http://52.33.209.86:8080/task-manager-server-1.0/";
+    var appURL = CommonService.appURL + '/';
 
     return {
 
