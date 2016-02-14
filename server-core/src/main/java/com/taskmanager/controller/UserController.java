@@ -17,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,8 +33,6 @@ import java.util.List;
 @RestController
 public class UserController {
 
-//    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
     @Autowired
     private IUserService userService;
     @Autowired
@@ -44,6 +43,8 @@ public class UserController {
     private IPictureService pictureService;
     @Autowired
     private IHachService hachService;
+
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/user/", method = RequestMethod.GET)
@@ -82,6 +83,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> addUser(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.create(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -90,16 +92,22 @@ public class UserController {
     @RequestMapping(value = "/user/", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@RequestBody User user) {
 
+        // get the current user connected
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         for (GrantedAuthority authority : auth.getAuthorities())
+            // check if the current user has only a user role
             if (authority.getAuthority().equals("ROLE_USER")) {
+                // check if the user is updating its own details, otherwise, return http error
                 if (!auth.getName().equals(user.getUsername())) {
                     return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
                 }
             }
         User old_user = userService.read(user.getUsername());
+        // check if the modification sets a new picture, otherwise, keep the old one
         if (old_user.getPic() != null)
             user.setPic(old_user.getPic());
+        // encode the new password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.update(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -203,25 +211,20 @@ public class UserController {
     @PostConstruct
     public void initData() {
         // init default admin
-        User admin = new User();
-        admin.setUsername("admin");
-        if (userService.read("admin") == null) {
-            admin.setPassword("admin");
-            Role role_admin = new Role();
-            role_admin.setName("ROLE_ADMIN");
-            admin.getRoles().add(role_admin);
-            userService.create(admin);
-        }
-
+        initUser("admin", "admin", "ROLE_ADMIN");
         // init default superadmin
-        User superadmin = new User();
-        superadmin.setUsername("superadmin");
-        if (userService.read("superadmin") == null) {
-            superadmin.setPassword("superadmin");
-            Role role_superadmin = new Role();
-            role_superadmin.setName("ROLE_SUPERADMIN");
-            superadmin.getRoles().add(role_superadmin);
-            userService.create(superadmin);
+        initUser("superadmin", "superadmin", "ROLE_SUPERADMIN");
+    }
+
+    private void initUser(String username, String password, String role) {
+        User user = new User();
+        user.setUsername(username);
+        if (userService.read(username) == null) {
+            user.setPassword(passwordEncoder.encode(password));
+            Role role_user = new Role();
+            role_user.setName(role);
+            user.getRoles().add(role_user);
+            userService.create(user);
         }
     }
 

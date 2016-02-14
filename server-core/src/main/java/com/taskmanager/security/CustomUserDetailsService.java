@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                     .getSingleResult();
             return new User(
                     domainUser.getUsername(),
-                    domainUser.getPassword().toLowerCase(),
+                    domainUser.getPassword(),
                     domainUser.isEnabled(),
                     domainUser.isAccountNonExpired(),
                     domainUser.isCredentialsNonExpired(),
