@@ -3,12 +3,10 @@ package com.taskmanager.controller;
 import com.taskmanager.model.Document;
 import com.taskmanager.model.Hach;
 import com.taskmanager.model.Picture;
-import com.taskmanager.model.Role;
 import com.taskmanager.model.User;
 import com.taskmanager.service.IDocumentService;
 import com.taskmanager.service.IHachService;
 import com.taskmanager.service.IPictureService;
-import com.taskmanager.service.IRoleService;
 import com.taskmanager.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,8 +32,6 @@ public class GeneratedUserController {
 
     @Autowired
     private IUserService userService;
-    @Autowired
-    private IRoleService roleService;
     @Autowired
     private IDocumentService documentService;
     @Autowired
@@ -67,20 +63,6 @@ public class GeneratedUserController {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(user, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-
-    @RequestMapping(value = "/role/", method = RequestMethod.GET)
-    public ResponseEntity<List<Role>> listAllRoles(@PathVariable String hach) {
-
-        if (isHachValid(hach)) {
-            List<Role> roles = roleService.findAll();
-            if (roles.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(roles, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
