@@ -74,20 +74,6 @@ public class UserController {
 
         // encode the password of the user
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        // find the corresponsing role objects and attach them to the new user
-//        Set<Role> newRoles = new HashSet<>();
-//        for (Role role : user.getRoles()) {
-//            if (role.getId() == RolesUtils.ROLE_USER.getId()) {
-//                newRoles.add(RolesUtils.ROLE_USER);
-//            }
-//            if (role.getId() == RolesUtils.ROLE_ADMIN.getId()) {
-//                newRoles.add(RolesUtils.ROLE_ADMIN);
-//            }
-//            if (role.getId() == RolesUtils.ROLE_SUPERADMIN.getId()) {
-//                newRoles.add(RolesUtils.ROLE_SUPERADMIN);
-//            }
-//        }
-//        user.setRoles(newRoles);
         userService.create(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
