@@ -125,7 +125,7 @@
                                     <th>Phone</th>
                                     <th>Address</th>
                                     <th>Email</th>
-                                    <th>Roles</th>
+                                    <th>Role</th>
                                     <th>
                                         <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                                                 data-target="#addModal" ng-click="ctrl.setAddMode()"><i
@@ -141,11 +141,7 @@
                                     <td ng-bind="user.phone"></td>
                                     <td ng-bind="user.address"></td>
                                     <td ng-bind="user.email"></td>
-                                    <td>
-                                        <select ng-init="activeRole = user.roles[0]" ng-model="activeRole"
-                                                ng-options="role.name for role in user.roles"
-                                                ng-change="setActiveRole(user.roles[activeRole - 1])"></select>
-                                    </td>
+                                    <td ng-bind="user.role"></td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-xs"><i
                                                 class="glyphicon glyphicon-pencil" ng-click="ctrl.populateModal(user)"
@@ -199,13 +195,10 @@
                     </div>
 
                     <div class="form-group form-group-sm">
-                        <label class="col-sm-3 control-label">Roles</label>
+                        <label class="col-sm-3 control-label">Role</label>
 
                         <div class="col-sm-8">
-                            <!--<select multiple ng-model="ctrl.user.roles" ng-options="role.name for role in ctrl.user.roles"-->
-                            <!--ng-change="setActiveRole(user.roles[activeRole - 1])"></select>-->
-                            <!--{{ctrl.user.roles}}-->
-                            <select multiple ng-model="ctrl.user.roles" ng-options="role.name for role in ctrl.roles">
+                            <select ng-model="ctrl.user.role" ng-options="role for role in ctrl.roles">
                             </select>
                         </div>
                     </div>
@@ -258,26 +251,6 @@
                             <li style="font:smaller">{{file.name}}</li>
                         </ul>
                     </div>
-
-                    <!--<div class="form-group form-group-sm">-->
-                    <!--<label class="col-sm-3 control-label">Documents</label>-->
-
-                    <!--<div ngf-drop ngf-select ng-model="documents" class="drop-box"-->
-                    <!--ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"-->
-                    <!--accept="'application/pdf'"-->
-                    <!--ngf-pattern="'application/pdf'">Drop pdfs here or click to upload-->
-                    <!--</div>-->
-                    <!--<div ngf-no-file-drop>Document Drag/Drop is not supported for this browser</div>-->
-
-                    <!--<ul>-->
-                    <!--<li ng-repeat="d in ctrl.user.documents" style="font:smaller">{{d.name}}-->
-                    <!--</li>-->
-                    <!--<li ng-repeat="d in documents" style="font:smaller">{{d.name}} {{d.$error}}-->
-                    <!--{{d.$errorParam}}-->
-                    <!--</li>-->
-                    <!--</ul>-->
-                    <!--</div>-->
-
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default col-sm-offset-5" data-dismiss="modal"

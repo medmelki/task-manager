@@ -7,8 +7,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         self.user = {username: '', password: '', address: '', email: ''};
         self.currentUser = {username: '', password: '', address: '', email: ''};
         self.users = [];
-        self.roles = [{"name": "ROLE_USER", "description": null}, {"name": "ROLE_ADMIN", "description": null},
-            {"name": "ROLE_SUPERADMIN", "description": null}];
+        self.roles = ["ROLE_USER", "ROLE_ADMIN", "ROLE_SUPERADMIN"];
         $rootScope.updateMode = 0;
 
         self.isSuperAdmin = false;
@@ -56,8 +55,8 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                     function (d) {
                         self.currentUser = d;
                         self.getPicture(self.currentUser.username);
-                        self.isItSuperAdmin(self.currentUser.roles);
-                        self.isItAdmin(self.currentUser.roles);
+                        self.isItSuperAdmin(self.currentUser.role);
+                        self.isItAdmin(self.currentUser.role);
                     },
                     function (errResponse) {
                         console.error('Error while fetching current user');
@@ -93,8 +92,8 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             UserService.updateUser(user)
                 .then(
                     self.findAllUsers,
-                    self.isItSuperAdmin(self.currentUser.roles),
-                    self.isItAdmin(self.currentUser.roles),
+                    self.isItSuperAdmin(self.currentUser.role),
+                    self.isItAdmin(self.currentUser.role),
                     function (errResponse) {
                         console.error('Error while updating User.');
                     }
@@ -128,7 +127,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             user.documents = temp.documents;
             user.tasks = temp.tasks;
             user.gps = temp.gps;
-            user.roles = temp.roles;
+            user.role = temp.role;
             if ($rootScope.updateMode === 0) {
                 console.log('Saving New User', user);
                 self.createUser(user);
@@ -294,21 +293,15 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             }
         };
 
-        self.isItSuperAdmin = function (roles) {
-            for (var i = 0; i < roles.length; i++) {
-                if (roles[i].name === "ROLE_SUPERADMIN") {
+        self.isItSuperAdmin = function (role) {
+                if (role === "ROLE_SUPERADMIN") {
                     self.isSuperAdmin = true;
-                    break;
                 }
-            }
         };
 
-        self.isItAdmin = function (roles) {
-            for (var i = 0; i < roles.length; i++) {
-                if (roles[i].name === "ROLE_SUPERADMIN" || roles[i].name === "ROLE_ADMIN") {
-                    self.isAdmin = true;
-                    break;
-                }
+        self.isItAdmin = function (role) {
+            if (role === "ROLE_SUPERADMIN" || role === "ROLE_ADMIN") {
+                self.isAdmin = true;
             }
         };
 

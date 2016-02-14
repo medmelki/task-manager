@@ -53,8 +53,7 @@ app.factory('UserService', ['$window', '$http', '$q', 'CommonService', function 
 
         createUser: function (user) {
             return $http.post(appURL + 'user/', user, {
-                    withCredentials: true,
-                    headers: {'Content-type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'}
+                    withCredentials: true
                 })
                 .then(
                     function (response) {
@@ -72,8 +71,7 @@ app.factory('UserService', ['$window', '$http', '$q', 'CommonService', function 
 
         updateUser: function (user) {
             return $http.put(appURL + 'user/', user, {
-                    withCredentials: true,
-                    headers: {'Content-type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'}
+                    withCredentials: true
                 })
                 .then(
                     function (response) {
@@ -91,8 +89,7 @@ app.factory('UserService', ['$window', '$http', '$q', 'CommonService', function 
 
         deleteUser: function (username) {
             return $http.delete(appURL + 'user/' + username, {
-                    withCredentials: true,
-                    headers: {'Content-type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'}
+                    withCredentials: true
                 })
                 .then(
                     function (response) {
@@ -177,7 +174,7 @@ app.factory('UserService', ['$window', '$http', '$q', 'CommonService', function 
                         return $q.reject(errResponse);
                     }
                 );
-        },
+        }
 
     };
 

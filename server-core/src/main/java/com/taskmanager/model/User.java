@@ -5,12 +5,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -30,11 +28,7 @@ public class User implements Serializable, UserDetails {
     @Id
     private String username;
     private String password;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_fk")},
-            inverseJoinColumns = {@JoinColumn(name = "role_fk")})
-    Set<Role> roles = new HashSet<>();
+    private String role;
     private String companyId;
     private String phone;
     private String address;
@@ -87,10 +81,7 @@ public class User implements Serializable, UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authList = new HashSet<GrantedAuthority>();
 
-        for (Role role : this.getRoles()) {
-            authList.add(new SimpleGrantedAuthority(role.getName()));
-        }
-
+        authList.add(new SimpleGrantedAuthority(this.getRole()));
         return authList;
     }
 
@@ -102,12 +93,12 @@ public class User implements Serializable, UserDetails {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getCompanyId() {
