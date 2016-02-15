@@ -215,13 +215,12 @@
                                         <span class='description'>{{d.name}}</span>
                                     </div><!-- /.user-block -->
                                     <div>
-                                        <div class='row margin-bottom'>
-                                            <div class='col-sm-8 col-sm-offset-2'>
-                                                <iframe
-                                                       ng-src='{{"data:application/pdf;base64," + d.data}}'>
-                                                </iframe>
-                                                <!--<button ng-click="ctrl.downloadPdf(d)" ng-href="{{d.url}}" class="btn btn-primary">download PDF</button>-->
-                                                <!--<embed ng-src="{{'data:application/pdf;base64,' + d.data}}"></embed>-->
+                                        <div class='row margin-bottom' style="height:550px;">
+                                            <div class='col-sm-8 col-sm-offset-2' style="height:550px;">
+                                                <object data='{{"data:application/pdf;base64," + d.data}}'
+                                                        type="application/pdf" width="100%" height="100%">
+                                                    <p>It appears you don't have a PDF plugin for this browser.</p>
+                                                </object>
                                             </div><!-- /.col -->
 
                                         </div><!-- /.row -->
@@ -368,5 +367,7 @@
 <script src="plugins/fastclick/fastclick.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<!-- PDF OBJECT -->
+<script src="plugins/pdfobject.min.js"></script>
 </body>
 </html>
