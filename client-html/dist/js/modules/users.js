@@ -4,8 +4,8 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
     function ($rootScope, $scope, Upload, UserService, $timeout, $sce, CommonService) {
 
         var self = this;
-        self.user = {username: '', password: '', address: '', email: ''};
-        self.currentUser = {username: '', password: '', address: '', email: ''};
+        self.user = {username: '', firstname: '', lastname: '', password: '', address: '', email: ''};
+        self.currentUser = {username: '', firstname: '', lastname: '', password: '', address: '', email: ''};
         self.users = [];
         self.roles = ["ROLE_USER", "ROLE_ADMIN", "ROLE_SUPERADMIN"];
         $rootScope.updateMode = 0;
@@ -93,7 +93,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                 .then(
                     self.findAllUsers,
                     self.isItSuperAdmin(self.currentUser.role),
-                    self.isItAdmin(self.currentUser.role),
+                        self.isItAdmin(self.currentUser.role),
                     function (errResponse) {
                         console.error('Error while updating User.');
                     }
@@ -118,6 +118,8 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             var temp = user;
             user = {};
             user.username = temp.username;
+            user.firstname = temp.firstname;
+            user.lastname = temp.lastname;
             user.password = temp.password;
             user.email = temp.email;
             user.companyId = temp.companyId;

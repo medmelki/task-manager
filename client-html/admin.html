@@ -121,6 +121,8 @@
                                 <thead>
                                 <tr>
                                     <th>Username</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
                                     <th>Company ID</th>
                                     <th>Phone</th>
                                     <th>Address</th>
@@ -137,6 +139,8 @@
                                 <tbody>
                                 <tr ng-repeat="user in ctrl.users | usersByUsername:activeUser">
                                     <td ng-bind="user.username"></td>
+                                    <td ng-bind="user.firstname"></td>
+                                    <td ng-bind="user.lastname"></td>
                                     <td ng-bind="user.companyId"></td>
                                     <td ng-bind="user.phone"></td>
                                     <td ng-bind="user.address"></td>
@@ -183,6 +187,20 @@
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="inputName" ng-model="ctrl.user.username"
                                    ng-disabled="updateMode === 1">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="inputFirstname" class="col-sm-3 control-label">Firstname</label>
+
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="inputFirstname" ng-model="ctrl.user.firstname">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="inputLastname" class="col-sm-3 control-label">Lastname</label>
+
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="inputLastname" ng-model="ctrl.user.lastname">
                         </div>
                     </div>
                     <div class="form-group form-group-sm">

@@ -27,6 +27,8 @@ public class User implements Serializable, UserDetails {
 
     @Id
     private String username;
+    private String firstname;
+    private String lastname;
     private String password;
     private String role;
     private String companyId;
@@ -44,6 +46,8 @@ public class User implements Serializable, UserDetails {
     private GPS gps;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private List<Task> tasks;
+    private String deviceId;
+    private String ServerIP;
 
 
     public User() {
@@ -174,5 +178,35 @@ public class User implements Serializable, UserDetails {
         this.tasks = tasks;
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
 
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public String getServerIP() {
+        return ServerIP;
+    }
+
+    public void setServerIP(String serverIP) {
+        ServerIP = serverIP;
+    }
 }
