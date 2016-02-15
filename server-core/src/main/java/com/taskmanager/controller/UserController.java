@@ -84,7 +84,7 @@ public class UserController {
 
         // get the current user connected
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        for (GrantedAuthority authority : auth.getAuthorities())
+        for (GrantedAuthority authority : auth.getAuthorities()) {
             // check if the current user has only a user role
             if (authority.getAuthority().equals("ROLE_USER")) {
                 // check if the user is updating its own details, otherwise, return http error
@@ -92,6 +92,7 @@ public class UserController {
                     return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
                 }
             }
+        }
         User old_user = userService.read(user.getUsername());
         // check if the modification sets a new picture, otherwise, keep the old one
         if (old_user.getPic() != null)
