@@ -9,6 +9,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         self.users = [];
         self.roles = ["ROLE_USER", "ROLE_ADMIN", "ROLE_SUPERADMIN"];
         $rootScope.updateMode = 0;
+        self.newPassword = '';
 
         self.isSuperAdmin = false;
         self.isAdmin = false;
@@ -120,7 +121,13 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             user.username = temp.username;
             user.firstname = temp.firstname;
             user.lastname = temp.lastname;
-            user.password = temp.password;
+            // use new password modal field if values exists, otherwise user the old one
+            if (self.newPassword) {
+                user.password = self.newPassword;
+            }
+            else {
+                user.password = temp.password;
+            }
             user.email = temp.email;
             user.companyId = temp.companyId;
             user.address = temp.address;
