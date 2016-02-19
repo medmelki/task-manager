@@ -8,7 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -29,6 +31,9 @@ public class Pack implements Serializable {
     private Double cost;
     @ManyToMany(mappedBy = "packs", fetch = FetchType.EAGER)
     private List<Task> tasks;
+    @ManyToOne
+    @JoinColumn(name = "manager_fk")
+    private User manager;
 
     public Pack() {
     }
@@ -98,4 +103,12 @@ public class Pack implements Serializable {
         this.tasks = tasks;
     }
 
+    @JsonIgnore
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
+    }
 }

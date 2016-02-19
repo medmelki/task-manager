@@ -1,12 +1,15 @@
 package com.taskmanager.model;
 
-import javax.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -24,6 +27,9 @@ public class Task implements Serializable {
     private List<Node> nodes;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Pack> packs;
+    @ManyToOne
+    @JoinColumn(name = "manager_fk")
+    private User manager;
 
     public Task() {
     }
@@ -58,5 +64,14 @@ public class Task implements Serializable {
 
     public void setPacks(List<Pack> packs) {
         this.packs = packs;
+    }
+
+    @JsonIgnore
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 }

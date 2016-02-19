@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,6 +36,9 @@ public class Node implements Serializable {
     private String contact;
     private String address;
     private String notes;
+    @ManyToOne
+    @JoinColumn(name = "manager_fk")
+    private User manager;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "nodes")
     private List<Task> tasks;
 
@@ -106,4 +110,12 @@ public class Node implements Serializable {
         this.tasks = tasks;
     }
 
+    @JsonIgnore
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
+    }
 }

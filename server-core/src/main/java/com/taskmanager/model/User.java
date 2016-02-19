@@ -41,6 +41,12 @@ public class User implements Serializable, UserDetails {
     Set<Picture> pictures = new LinkedHashSet<>();
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     Set<Document> documents;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "manager")
+    List<Task> tasksToManage;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "manager")
+    List<Node> nodesToManage;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "manager")
+    List<Pack> packsToManage;
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
     private GPS gps;
@@ -208,5 +214,29 @@ public class User implements Serializable, UserDetails {
 
     public void setServerIP(String serverIP) {
         ServerIP = serverIP;
+    }
+
+    public List<Task> getTasksToManage() {
+        return tasksToManage;
+    }
+
+    public void setTasksToManage(List<Task> tasksToManage) {
+        this.tasksToManage = tasksToManage;
+    }
+
+    public List<Node> getNodesToManage() {
+        return nodesToManage;
+    }
+
+    public void setNodesToManage(List<Node> nodesToManage) {
+        this.nodesToManage = nodesToManage;
+    }
+
+    public List<Pack> getPacksToManage() {
+        return packsToManage;
+    }
+
+    public void setPacksToManage(List<Pack> packsToManage) {
+        this.packsToManage = packsToManage;
     }
 }
