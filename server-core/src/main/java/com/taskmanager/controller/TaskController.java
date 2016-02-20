@@ -87,6 +87,6 @@ public class TaskController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // get the User object mapped from the database data
         User admin = userService.read(auth.getName());
-        task.setManager(admin);
+        task.setManager(admin.getUsername());
     }
 }

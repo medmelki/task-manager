@@ -35,6 +35,7 @@ public class User implements Serializable, UserDetails {
     private String phone;
     private String address;
     private String email;
+    private String manager;
     @Lob
     private byte[] pic;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
@@ -47,9 +48,6 @@ public class User implements Serializable, UserDetails {
     List<Node> nodesToManage;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "manager")
     List<Pack> packsToManage;
-    @OneToOne
-    @JoinColumn(name="manager")
-    private User manager;
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
     private GPS gps;
@@ -243,12 +241,11 @@ public class User implements Serializable, UserDetails {
         this.packsToManage = packsToManage;
     }
 
-    @JsonIgnore
-    public User getManager() {
+    public String getManager() {
         return manager;
     }
 
-    public void setManager(User manager) {
+    public void setManager(String manager) {
         this.manager = manager;
     }
 }

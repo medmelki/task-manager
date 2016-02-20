@@ -79,7 +79,7 @@ public class PackController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // get the User object mapped from the database data
         User admin = userService.read(auth.getName());
-        pack.setManager(admin);
+        pack.setManager(admin.getUsername());
     }
 
 

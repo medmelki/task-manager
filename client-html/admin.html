@@ -128,6 +128,7 @@
                                     <th>Address</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                                    <th ng-show="ctrl.isSuperAdmin">Manager</th>
                                     <th>
                                         <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                                                 data-target="#addModal" ng-click="ctrl.setAddMode()"><i
@@ -146,6 +147,7 @@
                                     <td ng-bind="user.address"></td>
                                     <td ng-bind="user.email"></td>
                                     <td ng-bind="user.role"></td>
+                                    <td ng-show="ctrl.isSuperAdmin" ng-bind="user.manager"></td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-xs"><i
                                                 class="glyphicon glyphicon-pencil" ng-click="ctrl.populateModal(user)"

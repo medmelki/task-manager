@@ -61,7 +61,7 @@ public class UserController {
         } else {
             // check if it is an admin then filter the users with the same domain.
             for (User usr : users) {
-                if (usr.getManager().getUsername().equals(user.getUsername())) {
+                if (usr.getManager().equals(user.getUsername())) {
                     usersResult.add(usr);
                 }
             }
@@ -232,7 +232,7 @@ public class UserController {
         if (userService.read(username) == null) {
             user.setPassword(passwordEncoder.encode(password));
             user.setRole(role);
-            user.setManager(user);
+            user.setManager(user.getUsername());
             userService.create(user);
         }
     }
@@ -242,10 +242,10 @@ public class UserController {
         // get the User object mapped from the database data
         User admin = userService.read(auth.getName());
         // check if superadmin then put the admin as its own manager
-        if (user.getRole().equals(ROLE_SUPERADMIN)) {
-            user.setManager(user);
+        if (admin.getRole().equals(ROLE_SUPERADMIN)) {
+            user.setManager(user.getUsername());
         } else { // the admin logged it is the manager of the user to be created
-            user.setManager(admin);
+            user.setManager(admin.getUsername());
         }
     }
 

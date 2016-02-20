@@ -2,23 +2,16 @@ package com.taskmanager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -36,9 +29,7 @@ public class Node implements Serializable {
     private String contact;
     private String address;
     private String notes;
-    @ManyToOne
-    @JoinColumn(name = "manager_fk")
-    private User manager;
+    private String manager;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "nodes")
     private List<Task> tasks;
 
@@ -111,11 +102,11 @@ public class Node implements Serializable {
     }
 
     @JsonIgnore
-    public User getManager() {
+    public String getManager() {
         return manager;
     }
 
-    public void setManager(User manager) {
+    public void setManager(String manager) {
         this.manager = manager;
     }
 }
