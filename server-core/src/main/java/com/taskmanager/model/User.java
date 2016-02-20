@@ -48,6 +48,9 @@ public class User implements Serializable, UserDetails {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "manager")
     List<Pack> packsToManage;
     @OneToOne
+    @JoinColumn(name="manager")
+    private User manager;
+    @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
     private GPS gps;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
@@ -238,5 +241,14 @@ public class User implements Serializable, UserDetails {
 
     public void setPacksToManage(List<Pack> packsToManage) {
         this.packsToManage = packsToManage;
+    }
+
+    @JsonIgnore
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 }

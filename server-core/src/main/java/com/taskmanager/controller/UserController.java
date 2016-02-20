@@ -27,11 +27,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class UserController {
 
+    public static final String ROLE_SUPERADMIN = "ROLE_SUPERADMIN";
     @Autowired
     private IUserService userService;
     @Autowired
@@ -47,11 +49,27 @@ public class UserController {
     @RequestMapping(value = "/user/", method = RequestMethod.GET)
     public ResponseEntity<List<User>> listAll() {
 
+        // retrieve the current logged in admin/superadmin
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        // get the User object mapped from the database data
+        User user = userService.read(auth.getName());
         List<User> users = userService.findAll();
-        if (users.isEmpty()) {
+        List<User> usersResult = new ArrayList<>();
+        // if the user logged in is a superadmin, return all the users of the app
+        if (user.getRole().equals(ROLE_SUPERADMIN)) {
+            usersResult = users;
+        } else {
+            // check if it is an admin then filter the users with the same domain.
+            for (User usr : users) {
+                if (usr.getManager().getUsername().equals(user.getUsername())) {
+                    usersResult.add(usr);
+                }
+            }
+        }
+        if (usersResult.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(usersResult, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
@@ -71,7 +89,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> addUser(@RequestBody User user) {
-
+        putManager(user);
         // encode the password of the user
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.create(user);
@@ -81,7 +99,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/user/", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-
+        putManager(user);
         // get the current user connected
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         for (GrantedAuthority authority : auth.getAuthorities()) {
@@ -201,19 +219,33 @@ public class UserController {
 
     @PostConstruct
     public void initData() {
-        // init default admin
-        initUser("admin", "admin", RolesUtils.ROLE_ADMIN);
         // init default superadmin
-        initUser("superadmin", "superadmin", RolesUtils.ROLE_SUPERADMIN);
+        initAdmin("superadmin", "superadmin", RolesUtils.ROLE_SUPERADMIN);
+        // init default admin
+        initAdmin("admin", "admin", RolesUtils.ROLE_ADMIN);
+
     }
 
-    private void initUser(String username, String password, String role) {
+    private void initAdmin(String username, String password, String role) {
         User user = new User();
         user.setUsername(username);
         if (userService.read(username) == null) {
             user.setPassword(passwordEncoder.encode(password));
             user.setRole(role);
+            user.setManager(user);
             userService.create(user);
+        }
+    }
+
+    private void putManager(User user) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        // get the User object mapped from the database data
+        User admin = userService.read(auth.getName());
+        // check if superadmin then put the admin as its own manager
+        if (user.getRole().equals(ROLE_SUPERADMIN)) {
+            user.setManager(user);
+        } else { // the admin logged it is the manager of the user to be created
+            user.setManager(admin);
         }
     }
 
