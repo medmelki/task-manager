@@ -53,7 +53,8 @@
                                     <a href="profile.html" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a ng-href="{{ctrl.appURL + 'logout'}}" class="btn btn-default btn-flat">Sign out</a>
+                                    <a ng-href="{{ctrl.appURL + 'logout'}}" class="btn btn-default btn-flat">Sign
+                                        out</a>
                                 </div>
                             </li>
                         </ul>
@@ -93,7 +94,9 @@
                 <br>
                 <br>
                 <li ng-controller="HashController as hashCtrl" ng-show="ctrl.isSuperAdmin">
-                    <button class="col-sm-offset-2 btn btn-danger col-sm-8" ng-click="hashCtrl.getHash()">Generate Link</button>
+                    <button class="col-sm-offset-2 btn btn-danger col-sm-8" ng-click="hashCtrl.getHash()">Generate
+                        Link
+                    </button>
                     <p><input class="col-sm-offset-1 col-sm-10" ng-model="hashCtrl.hash.hach"/></p>
 
                 </li>
@@ -180,15 +183,19 @@
             <div class="modal-body">
                 <h4><strong>User Information</strong></h4>
 
-                <form class="form-horizontal col-sm-6 mod_form">
+                <form name="form1" class="form-horizontal col-sm-6 mod_form">
                     <br>
 
                     <div class="form-group form-group-sm">
                         <label for="inputName" class="col-sm-3 control-label">Username</label>
 
                         <div class="col-sm-8">
-                            <input class="form-control" type="text" id="inputName" ng-model="ctrl.user.username"
-                                   ng-disabled="updateMode === 1">
+                            <input class="form-control" type="text" name="user" id="inputName"
+                                   ng-model="ctrl.user.username"
+                                   ng-disabled="updateMode === 1" required>
+                            <span style="color:red">
+                                <span ng-show="form1.user.$error.required">Username is required.</span>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
@@ -213,26 +220,31 @@
                                    ng-model="ctrl.newPassword">
                         </div>
                     </div>
-
                     <div class="form-group form-group-sm">
                         <label class="col-sm-3 control-label">Role</label>
 
                         <div class="col-sm-8">
-                            <select ng-model="ctrl.user.role" ng-options="role for role in ctrl.roles">
+                            <select ng-model="ctrl.user.role" name="roles" ng-options="role for role in ctrl.roles"
+                                    required>
                             </select>
+                            <span style="color:red">
+                                <span ng-show="form1.roles.$error.required">Role is required.</span>
+                            </span>
                         </div>
                     </div>
-
                     <div class="form-group form-group-sm" ng-show="ctrl.isSuperAdmin && ctrl.isNormalUserOp">
                         <label for="inputManager" class="col-sm-3 control-label">Manager</label>
 
                         <div class="col-sm-8">
-                            <select ng-model="ctrl.user.manager" id="inputManager"
-                                    ng-options="user.username for user in ctrl.admins">
+                            <select ng-model="ctrl.user.manager" name="manager" id="inputManager"
+                                    ng-options="user.username for user in ctrl.admins" required>
                             </select>
+                            <br>
+                            <span style="color:red">
+                                <span ng-show="form1.manager.$error.required">Manager is required.</span>
+                            </span>
                         </div>
                     </div>
-
                     <div class="form-group form-group-sm">
                         <label for="inputPhone" class="col-sm-3 control-label">Phone</label>
 
@@ -240,7 +252,6 @@
                             <input class="form-control" type="text" id="inputPhone" ng-model="ctrl.user.phone">
                         </div>
                     </div>
-
                     <div class="form-group form-group-sm">
                         <label for="inputCompany" class="col-sm-3 control-label">CompanyID</label>
 
@@ -248,12 +259,15 @@
                             <input class="form-control" type="text" id="inputCompany" ng-model="ctrl.user.companyId">
                         </div>
                     </div>
-
                     <div class="form-group form-group-sm">
                         <label for="inputEmail" class="col-sm-3 control-label">Email</label>
 
                         <div class="col-sm-8">
-                            <input class="form-control" type="email" id="inputEmail" ng-model="ctrl.user.email">
+                            <input class="form-control" type="email" name="email" id="inputEmail"
+                                   ng-model="ctrl.user.email">
+                            <span style="color:red" ng-show="form1.email.$dirty && form1.email.$invalid">
+                                <span ng-show="form1.email.$error.email">Invalid email address.</span>
+                            </span>
                         </div>
                     </div>
                 </form>
@@ -287,7 +301,9 @@
                             ng-click="ctrl.reset();">Cancel
                     </button>
                     <button type="button" class="btn btn-primary col-sm-offset-10" data-dismiss="modal"
-                            ng-click="ctrl.submit(ctrl.user, updateMode)">SUBMIT
+                            ng-click="ctrl.submit(ctrl.user, updateMode)" ng-disabled="form1.user.$error.required ||
+                            form1.email.$invalid || form1.roles.$error.required ||
+                            (ctrl.isSuperAdmin && ctrl.isNormalUserOp && form1.manager.$error.required)">SUBMIT
                     </button>
                 </div>
             </div>
