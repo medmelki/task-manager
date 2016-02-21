@@ -8,11 +8,13 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         self.currentUser = {username: '', firstname: '', lastname: '', password: '', address: '', email: ''};
         self.users = [];
         self.roles = ["ROLE_USER", "ROLE_ADMIN", "ROLE_SUPERADMIN"];
+        self.admins= [];
         $rootScope.updateMode = 0;
         self.newPassword = '';
 
         self.isSuperAdmin = false;
         self.isAdmin = false;
+        self.isNormalUserOp = false;
 
 
         self.appURL = CommonService.appURL + '/';
@@ -36,6 +38,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                     function (d) {
                         self.users = d;
                         $scope.setActiveRole(0);
+                        self.findAllAdmins(d);
                     },
                     function (errResponse) {
                         console.error('Error while fetching Users');
@@ -94,7 +97,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                 .then(
                     self.findAllUsers,
                     self.isItSuperAdmin(self.currentUser.role),
-                        self.isItAdmin(self.currentUser.role),
+                    self.isItAdmin(self.currentUser.role),
                     function (errResponse) {
                         console.error('Error while updating User.');
                     }
@@ -303,14 +306,33 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         };
 
         self.isItSuperAdmin = function (role) {
-                if (role === "ROLE_SUPERADMIN") {
-                    self.isSuperAdmin = true;
-                }
+            if (role === "ROLE_SUPERADMIN") {
+                self.isSuperAdmin = true;
+            }
         };
 
         self.isItAdmin = function (role) {
             if (role === "ROLE_SUPERADMIN" || role === "ROLE_ADMIN") {
                 self.isAdmin = true;
+            }
+        };
+
+        $scope.$watch('ctrl.user.role', function (newValue, oldValue) {
+            if (newValue === self.roles[0]) {
+                self.isNormalUserOp = true;
+            }
+            else {
+                self.isNormalUserOp = false;
+            }
+        });
+
+        self.findAllAdmins = function (users) {
+
+            for (var i = 0; i < users.length; i++) {
+
+                if (users[i].role.indexOf('ROLE_ADMIN') > -1) {
+                    self.admins.push(users[i]);
+                }
             }
         };
 

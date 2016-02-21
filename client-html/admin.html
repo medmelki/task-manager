@@ -223,6 +223,16 @@
                         </div>
                     </div>
 
+                    <div class="form-group form-group-sm" ng-show="ctrl.isSuperAdmin && ctrl.isNormalUserOp">
+                        <label for="inputManager" class="col-sm-3 control-label">Manager</label>
+
+                        <div class="col-sm-8">
+                            <select ng-model="ctrl.user.manager" id="inputManager"
+                                    ng-options="user.username for user in ctrl.admins">
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group form-group-sm">
                         <label for="inputPhone" class="col-sm-3 control-label">Phone</label>
 
