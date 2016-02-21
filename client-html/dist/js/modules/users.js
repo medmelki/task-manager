@@ -124,7 +124,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             user.username = temp.username;
             user.firstname = temp.firstname;
             user.lastname = temp.lastname;
-            // use new password modal field if values exists, otherwise user the old one
+            // use new password modal field if values exists, otherwise use the old one
             if (self.newPassword) {
                 user.password = self.newPassword;
             }
@@ -140,6 +140,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             user.tasks = temp.tasks;
             user.gps = temp.gps;
             user.role = temp.role;
+            user.manager = temp.manager;
             if ($rootScope.updateMode === 0) {
                 console.log('Saving New User', user);
                 self.createUser(user);
@@ -328,10 +329,10 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
 
         self.findAllAdmins = function (users) {
 
+            self.admins = [];
             for (var i = 0; i < users.length; i++) {
-
                 if (users[i].role.indexOf('ROLE_ADMIN') > -1) {
-                    self.admins.push(users[i]);
+                    self.admins.push(users[i].username);
                 }
             }
         };

@@ -237,7 +237,7 @@
 
                         <div class="col-sm-8">
                             <select ng-model="ctrl.user.manager" name="manager" id="inputManager"
-                                    ng-options="user.username for user in ctrl.admins" required>
+                                    ng-options="user for user in ctrl.admins" required>
                             </select>
                             <br>
                             <span style="color:red">

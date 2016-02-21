@@ -89,7 +89,9 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> addUser(@RequestBody User user) {
-        putManager(user);
+        if (user.getManager() == null) {
+            putManager(user);
+        }
         // encode the password of the user
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.create(user);
@@ -99,7 +101,9 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/user/", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-        putManager(user);
+        if (user.getManager() == null) {
+            putManager(user);
+        }
         // get the current user connected
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         for (GrantedAuthority authority : auth.getAuthorities()) {
