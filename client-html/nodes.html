@@ -147,18 +147,6 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <br><br>
-                            <form>
-                                <select ng-init="activeNode1 = ctrl.nodes[0]" ng-model="activeNode1"
-                                        ng-options="node.id for node in ctrl.nodes"
-                                        ng-change="setActiveNode(ctrl.nodes[activeNode1 - 1])"></select>
-                                <select ng-init="activeNode2 = ctrl.nodes[0]" ng-model="activeNode2"
-                                        ng-options="node.id for node in ctrl.nodes"
-                                        ng-change="setActiveNode(ctrl.nodes[activeNode2 - 1])"></select>
-                                <button type="button" class="btn btn-primary"
-                                        ng-click="ctrl.generateTask(activeNode1, activeNode2)">Generate Task
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>

@@ -7,8 +7,6 @@ app.controller('NodeController', ['$rootScope', '$scope', 'Upload', 'NodeService
         self.node = {};
         self.nodes = [];
         $scope.updateMode = 0;
-        $scope.activeNode1 = null;
-        $scope.activeNode2 = null;
         $scope.updateMode = 0;
 
         self.appURL = CommonService.appURL + '/';
@@ -40,16 +38,6 @@ app.controller('NodeController', ['$rootScope', '$scope', 'Upload', 'NodeService
 
         self.createNode = function (node) {
             NodeService.createNode(node)
-                .then(
-                    self.findAllNodes,
-                    function (errResponse) {
-                        console.error('Error while creating Node.');
-                    }
-                );
-        };
-
-        self.generateTask = function (node1, node2) {
-            NodeService.generateTask(node1, node2)
                 .then(
                     self.findAllNodes,
                     function (errResponse) {
