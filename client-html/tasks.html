@@ -114,11 +114,11 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Users</th>
+                                    <th ng-show="userCtrl.isAdmin && userCtrl.isSuperAdmin">Users</th>
                                     <th>Nodes</th>
                                     <th>Packages</th>
                                     <th ng-show="userCtrl.isSuperAdmin">Manager</th>
-                                    <th>
+                                    <th ng-show="userCtrl.isAdmin && userCtrl.isSuperAdmin">
                                         <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                                                 data-target="#addModal" ng-click="ctrl.setAddMode()"><i
                                                 class="glyphicon glyphicon-plus"></i> New
@@ -129,7 +129,7 @@
                                 <tbody>
                                 <tr ng-repeat="task in ctrl.tasks | objectsById:activeTask">
                                     <td ng-bind="task.id"></td>
-                                    <td>
+                                    <td ng-show="userCtrl.isAdmin && userCtrl.isSuperAdmin">
                                         <select ng-init="activeUser = task.users[0]" ng-model="activeUser"
                                                 ng-options="user.username for user in task.users"
                                                 ng-change="setActiveUser(task.users[activeUser - 1])"></select>
@@ -145,7 +145,7 @@
                                                 ng-change="setActivePackage(task.packs[activePackage - 1])"></select>
                                     </td>
                                     <td ng-show="userCtrl.isSuperAdmin" ng-bind="task.manager"></td>
-                                    <td>
+                                    <td ng-show="userCtrl.isAdmin && userCtrl.isSuperAdmin">
                                         <button type="button" class="btn btn-primary btn-xs"><i
                                                 class="glyphicon glyphicon-pencil" ng-click="ctrl.populateModal(task)"
                                                 data-target="#addModal" data-toggle="modal"></i></button>

@@ -119,7 +119,7 @@
                                     <th>Contact</th>
                                     <th>Address</th>
                                     <th>Notes</th>
-                                    <th>
+                                    <th ng-show="userCtrl.isAdmin && userCtrl.isSuperAdmin">
                                         <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                                                 data-target="#addModal" ng-click="ctrl.setAddMode()"><i
                                                 class="glyphicon glyphicon-plus"></i> New
@@ -136,7 +136,7 @@
                                     <td ng-bind="node.contact"></td>
                                     <td ng-bind="node.address"></td>
                                     <td ng-bind="node.notes"></td>
-                                    <td>
+                                    <td ng-show="userCtrl.isAdmin && userCtrl.isSuperAdmin">
                                         <button type="button" class="btn btn-primary btn-xs"><i
                                                 class="glyphicon glyphicon-pencil" ng-click="ctrl.populateModal(node)"
                                                 data-target="#addModal" data-toggle="modal"></i></button>

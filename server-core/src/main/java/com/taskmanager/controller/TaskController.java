@@ -28,6 +28,7 @@ public class TaskController {
 
     public static final String ROLE_SUPERADMIN = "ROLE_SUPERADMIN";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
+
     @Autowired
     private ITaskService taskService;
     @Autowired

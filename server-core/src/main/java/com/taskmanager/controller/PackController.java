@@ -1,6 +1,7 @@
 package com.taskmanager.controller;
 
 import com.taskmanager.model.Pack;
+import com.taskmanager.model.Task;
 import com.taskmanager.model.User;
 import com.taskmanager.service.IPackService;
 import com.taskmanager.service.IUserService;
@@ -17,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class PackController {
 
     public static final String ROLE_SUPERADMIN = "ROLE_SUPERADMIN";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+
     @Autowired
     private IPackService packService;
     @Autowired
@@ -40,9 +45,16 @@ public class PackController {
         // check if superadmin then show all packs
         if (user.getRole().equals(ROLE_SUPERADMIN)) {
             packs = packService.findAll();
-        } else {
-            // else return only user managed packs
+        } else if (user.getRole().equals(ROLE_ADMIN)) {
+            // else return only user managed tasks
             packs.addAll(user.getPacksToManage());
+        }
+        else { // the logged in user is a normal one, return the packs affected to him
+            Set<Pack> packSet = new HashSet<>();
+            for (Task task : user.getTasks()) {
+                packSet.addAll(task.getPacks());
+            }
+            packs.addAll(packSet);
         }
         if (packs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
