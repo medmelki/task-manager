@@ -27,6 +27,7 @@ import java.util.List;
 public class TaskController {
 
     public static final String ROLE_SUPERADMIN = "ROLE_SUPERADMIN";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
     @Autowired
     private ITaskService taskService;
     @Autowired
@@ -36,21 +37,24 @@ public class TaskController {
     @Autowired
     private IPackService packService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/task/", method = RequestMethod.GET)
     public ResponseEntity<List<Task>> listAll() {
 
-        // retrieve the current logged in admin/superadmin
+        // retrieve the current logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // get the User object mapped from the database data
         User user = userService.read(auth.getName());
-        List<Task> tasks;
+        List<Task> tasks = new ArrayList<>();
         // check if superadmin then show all tasks
         if (user.getRole().equals(ROLE_SUPERADMIN)) {
             tasks = taskService.findAll();
-        } else {
+        } else if (user.getRole().equals(ROLE_ADMIN)) {
             // else return only user managed tasks
-            tasks = user.getTasksToManage();
+            tasks.addAll(user.getTasksToManage());
+        }
+        else { // the logged in user is a normal one, return the tasks affected to him
+            tasks = user.getTasks();
         }
         if (tasks.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

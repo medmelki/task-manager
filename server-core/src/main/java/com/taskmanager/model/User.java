@@ -43,11 +43,11 @@ public class User implements Serializable, UserDetails {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     Set<Document> documents;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "manager")
-    List<Task> tasksToManage;
+    Set<Task> tasksToManage;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "manager")
-    List<Node> nodesToManage;
+    Set<Node> nodesToManage;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "manager")
-    List<Pack> packsToManage;
+    Set<Pack> packsToManage;
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
     private GPS gps;
@@ -217,27 +217,27 @@ public class User implements Serializable, UserDetails {
         ServerIP = serverIP;
     }
 
-    public List<Task> getTasksToManage() {
+    public Set<Task> getTasksToManage() {
         return tasksToManage;
     }
 
-    public void setTasksToManage(List<Task> tasksToManage) {
+    public void setTasksToManage(Set<Task> tasksToManage) {
         this.tasksToManage = tasksToManage;
     }
 
-    public List<Node> getNodesToManage() {
+    public Set<Node> getNodesToManage() {
         return nodesToManage;
     }
 
-    public void setNodesToManage(List<Node> nodesToManage) {
+    public void setNodesToManage(Set<Node> nodesToManage) {
         this.nodesToManage = nodesToManage;
     }
 
-    public List<Pack> getPacksToManage() {
+    public Set<Pack> getPacksToManage() {
         return packsToManage;
     }
 
-    public void setPacksToManage(List<Pack> packsToManage) {
+    public void setPacksToManage(Set<Pack> packsToManage) {
         this.packsToManage = packsToManage;
     }
 

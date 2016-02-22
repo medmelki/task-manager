@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,13 +36,13 @@ public class PackController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // get the User object mapped from the database data
         User user = userService.read(auth.getName());
-        List<Pack> packs;
+        List<Pack> packs = new ArrayList<>();
         // check if superadmin then show all packs
         if (user.getRole().equals(ROLE_SUPERADMIN)) {
             packs = packService.findAll();
         } else {
             // else return only user managed packs
-            packs = user.getPacksToManage();
+            packs.addAll(user.getPacksToManage());
         }
         if (packs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

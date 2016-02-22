@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,13 +36,13 @@ public class NodeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // get the User object mapped from the database data
         User user = userService.read(auth.getName());
-        List<Node> nodes;
+        List<Node> nodes = new ArrayList<>();
         // check if superadmin then show all nodes
         if (user.getRole().equals(ROLE_SUPERADMIN)) {
             nodes = nodeService.findAll();
         } else {
             // else return only user managed nodes
-            nodes = user.getNodesToManage();
+            nodes.addAll(user.getNodesToManage());
         }
         if (nodes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

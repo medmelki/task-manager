@@ -8,7 +8,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
         self.currentUser = {username: '', firstname: '', lastname: '', password: '', address: '', email: ''};
         self.users = [];
         self.roles = ["ROLE_USER", "ROLE_ADMIN", "ROLE_SUPERADMIN"];
-        self.admins= [];
+        self.admins = [];
         $rootScope.updateMode = 0;
         self.newPassword = '';
 
@@ -151,6 +151,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             if ($scope.file != null) {
                 $scope.uploadProfilePicture($scope.file);
             }
+            $('#addModal').modal('hide');
             self.reset();
         };
 
