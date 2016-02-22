@@ -118,7 +118,7 @@
                                     <th>Nodes</th>
                                     <th>Packages</th>
                                     <th ng-show="userCtrl.isSuperAdmin">Manager</th>
-                                    <th ng-show="userCtrl.isAdmin && userCtrl.isSuperAdmin">
+                                    <th ng-show="userCtrl.isAdmin || userCtrl.isSuperAdmin">
                                         <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
                                                 data-target="#addModal" ng-click="ctrl.setAddMode()"><i
                                                 class="glyphicon glyphicon-plus"></i> New
@@ -145,7 +145,7 @@
                                                 ng-change="setActivePackage(task.packs[activePackage - 1])"></select>
                                     </td>
                                     <td ng-show="userCtrl.isSuperAdmin" ng-bind="task.manager"></td>
-                                    <td ng-show="userCtrl.isAdmin && userCtrl.isSuperAdmin">
+                                    <td ng-show="userCtrl.isAdmin || userCtrl.isSuperAdmin">
                                         <button type="button" class="btn btn-primary btn-xs"><i
                                                 class="glyphicon glyphicon-pencil" ng-click="ctrl.populateModal(task)"
                                                 data-target="#addModal" data-toggle="modal"></i></button>

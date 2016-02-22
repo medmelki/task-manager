@@ -217,6 +217,7 @@ public class User implements Serializable, UserDetails {
         ServerIP = serverIP;
     }
 
+    @JsonIgnore
     public Set<Task> getTasksToManage() {
         return tasksToManage;
     }

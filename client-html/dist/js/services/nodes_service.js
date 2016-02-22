@@ -54,6 +54,25 @@ app.factory('NodeService', ['$window', '$http', '$q', 'CommonService', function 
                 );
         },
 
+        generateTask: function (node1, node2) {
+            var nodes = [node1,node2];
+            return $http.post(appURL + 'task/auto/', nodes, {
+                    withCredentials: true
+                })
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (errResponse) {
+                        console.error('Error while creating node');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
+                        return $q.reject(errResponse);
+                    }
+                );
+        },
+
         updateNode: function (node) {
             return $http.put(appURL + 'node/', node, {
                     withCredentials: true,
