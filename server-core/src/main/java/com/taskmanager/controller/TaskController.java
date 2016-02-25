@@ -1,6 +1,7 @@
 package com.taskmanager.controller;
 
 import com.taskmanager.model.Node;
+import com.taskmanager.model.Pack;
 import com.taskmanager.model.Task;
 import com.taskmanager.model.User;
 import com.taskmanager.service.INodeService;
@@ -89,28 +90,27 @@ public class TaskController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/task/auto/", method = RequestMethod.POST)
-    public ResponseEntity<Task> generateTask(@RequestBody List<Node> nodes/*, @RequestBody(required = false) Pack pack*/) {
+    public ResponseEntity<Task> generateTask(@RequestBody Task task) {
 
-        if (nodes != null) {
-            Task autoTask = new Task();
-            List<Node> autoTaskNodes = new ArrayList<>();
+        if (task != null && task.getNodes() != null) {
+            List<Node> nodes = task.getNodes();
+            if (task.getPacks() != null) {
+                List<Pack> packs = task.getPacks();
+                // create the packs if they are new
+                for (Pack pack : packs) {
+                    if (packService.read(pack.getId()) == null) {
+                        packService.create(pack);
+                    }
+                }
+            }
+            // create the nodes if they are new
             for (Node node : nodes) {
                 if (nodeService.read(node.getId()) == null) {
                     nodeService.create(node);
                 }
-                // fill the auto generated task
-                autoTaskNodes.add(node);
             }
-            // save the pack if it exists
-//            if (pack != null) {
-//                packService.create(pack);
-//                List<Pack> autoTaskPacks = new ArrayList<>();
-//                autoTaskPacks.add(pack);
-//                autoTask.setPacks(autoTaskPacks);
-//            }
-            autoTask.setNodes(autoTaskNodes);
-            putManager(autoTask);
-            taskService.create(autoTask);
+            putManager(task);
+            taskService.create(task);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

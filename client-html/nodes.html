@@ -147,6 +147,21 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <br><br>
+                            <form ng-controller="PackController as packCtrl">
+                                <select ng-init="activeNode1 = ctrl.nodes[0]" ng-model="activeNode1"
+                                        ng-options="node.id for node in ctrl.nodes"
+                                        ng-change="setActiveNode(ctrl.nodes[activeNode1 - 1])"></select>
+                                <select ng-init="activeNode2 = ctrl.nodes[0]" ng-model="activeNode2"
+                                        ng-options="node.id for node in ctrl.nodes"
+                                        ng-change="setActiveNode(ctrl.nodes[activeNode2 - 1])"></select>
+                                <select ng-init="pack1 = packCtrl.pack[0]" ng-model="pack1"
+                                        ng-options="pack.id for pack in packCtrl.packs"
+                                        ng-change="setActivePack(packCtrl.packs[pack1 - 1])"></select>
+                                <button type="button" class="btn btn-primary"
+                                        ng-click="ctrl.generateTask(activeNode1, activeNode2, pack1)">Generate Task
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -235,10 +250,12 @@
 <script src="plugins/ng-file-upload.min.js"></script>
 <script src="dist/js/modules/login.js"></script>
 <script src="dist/js/services/nodes_service.js"></script>
+<script src="dist/js/services/packages_service.js"></script>
 <script src="dist/js/services/users_service.js"></script>
 <script src="dist/js/services/common_service.js"></script>
 <script src="dist/js/modules/users.js"></script>
 <script src="dist/js/modules/nodes.js"></script>
+<script src="dist/js/modules/packs.js"></script>
 <script src="dist/js/filters/usersByUsername.js"></script>
 <script src="dist/js/filters/objectsById.js"></script>
 

@@ -7,6 +7,7 @@ app.controller('PackController', ['$rootScope', '$scope', 'Upload', 'PackService
         self.pack = {};
         self.packs = [];
         $scope.updateMode = 0;
+        self.pack1 = null;
 
         self.appURL = CommonService.appURL + '/';
 
