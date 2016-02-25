@@ -114,7 +114,7 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th ng-show="userCtrl.isAdmin && userCtrl.isSuperAdmin">Users</th>
+                                    <th ng-show="userCtrl.isAdmin || userCtrl.isSuperAdmin">Users</th>
                                     <th>Nodes</th>
                                     <th>Packages</th>
                                     <th ng-show="userCtrl.isSuperAdmin">Manager</th>
@@ -129,7 +129,7 @@
                                 <tbody>
                                 <tr ng-repeat="task in ctrl.tasks | objectsById:activeTask">
                                     <td ng-bind="task.id"></td>
-                                    <td ng-show="userCtrl.isAdmin && userCtrl.isSuperAdmin">
+                                    <td ng-show="userCtrl.isAdmin || userCtrl.isSuperAdmin">
                                         <select ng-init="activeUser = task.users[0]" ng-model="activeUser"
                                                 ng-options="user.username for user in task.users"
                                                 ng-change="setActiveUser(task.users[activeUser - 1])"></select>
