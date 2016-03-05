@@ -21,8 +21,8 @@
 
     <header class="main-header">
         <a href="#" class="logo">
-            <span class="logo-mini"><b>T</b>Mgr</span>
-            <span class="logo-lg"><b>Task</b>Manager</span>
+            <span class="logo-mini"><b>A</b>rastu</span>
+            <span class="logo-lg"><b>A</b>rastu</span>
         </a>
         <nav class="navbar navbar-static-top" role="navigation">
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -177,7 +177,7 @@
 
 <footer class="main-footer">
 
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2016 <a href="#">Arastu</a>.</strong> All rights reserved.
 </footer>
 
 
