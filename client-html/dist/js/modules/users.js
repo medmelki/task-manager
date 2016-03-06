@@ -18,6 +18,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
 
 
         self.appURL = CommonService.appURL + '/';
+        self.traccarURL = CommonService.traccarURL + '/';
 
         self.getPicture = function (username) {
             UserService.getPicture(username)
