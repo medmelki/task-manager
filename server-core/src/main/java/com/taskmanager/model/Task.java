@@ -18,6 +18,10 @@ public class Task implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    private Long date;
+    private String description;
+    private String status;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<User> users;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -68,5 +72,29 @@ public class Task implements Serializable {
 
     public void setManager(String manager) {
         this.manager = manager;
+    }
+
+    public Long getDate() {
+        return date;
+    }
+
+    public void setDate(Long date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

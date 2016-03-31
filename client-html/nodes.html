@@ -116,6 +116,9 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>FirstName</th>
+                                    <th>LastName</th>
+                                    <th>Category</th>
                                     <th>Date</th>
                                     <th>Time</th>
                                     <th>Email</th>
@@ -133,6 +136,9 @@
                                 <tbody>
                                 <tr ng-repeat="node in ctrl.nodes | objectsById:activeNode">
                                     <td ng-bind="node.id"></td>
+                                    <td ng-bind="node.firstname"></td>
+                                    <td ng-bind="node.lastname"></td>
+                                    <td ng-bind="node.category"></td>
                                     <td ng-bind="node.time | date:'MM/dd/yyyy'"></td>
                                     <td ng-bind="node.time | date:'HH:mm'"></td>
                                     <td ng-bind="node.email"></td>
@@ -166,6 +172,29 @@
 
                     <form class="form-horizontal col-sm-12 mod_form">
                         <br>
+                        <div class="form-group form-group-sm">
+                            <label for="inputFirstName" class="col-sm-3 control-label">FirstName</label>
+
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" id="inputFirstName" ng-model="ctrl.node.firstname">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label for="inputLastName" class="col-sm-3 control-label">Lastanme</label>
+
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" id="inputLastName" ng-model="ctrl.node.lastname">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="col-sm-3 control-label">Category</label>
+
+                            <div class="col-sm-8">
+                                <select ng-model="ctrl.node.category" name="categories" ng-options="category for category in ctrl.categories"
+                                        required>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group form-group-sm">
                             <label for="inputTime" class="col-sm-3 control-label">Time</label>
 

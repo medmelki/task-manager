@@ -28,6 +28,7 @@ public class TaskController {
 
     public static final String ROLE_SUPERADMIN = "ROLE_SUPERADMIN";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String TASK_ASSIGNED_STATUS = "Assigned";
 
     @Autowired
     private ITaskService taskService;
@@ -66,6 +67,7 @@ public class TaskController {
     @RequestMapping(value = "/task/", method = RequestMethod.POST)
     public ResponseEntity<Void> addTask(@RequestBody Task task) {
         putManager(task);
+        applyStatus(task);
         taskService.create(task);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -74,6 +76,7 @@ public class TaskController {
     @RequestMapping(value = "/task/", method = RequestMethod.PUT)
     public ResponseEntity<Task> updateTask(@RequestBody Task task) {
         putManager(task);
+        applyStatus(task);
         taskService.update(task);
         return new ResponseEntity<>(task, HttpStatus.OK);
     }
@@ -121,5 +124,11 @@ public class TaskController {
         // get the User object mapped from the database data
         User admin = userService.read(auth.getName());
         task.setManager(admin.getUsername());
+    }
+
+    private void applyStatus(Task task) {
+        if (task.getUsers() != null && !task.getUsers().isEmpty() && task.getStatus() == null) {
+            task.setStatus(TASK_ASSIGNED_STATUS);
+        }
     }
 }

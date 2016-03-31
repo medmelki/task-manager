@@ -6,6 +6,7 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
         var self = this;
         self.task = {};
         self.tasks = [];
+        self.status = ["Not assigned", "Assigned", "In Progress", "Completed", "Cancelled"];
         $scope.updateMode = 0;
 
         self.appURL = CommonService.appURL + '/';
@@ -70,6 +71,7 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
         self.findAllTasks();
 
         self.submit = function (task, isUpdateMode) {
+            task.date = new Date(task.date).getTime();
             $scope.updateMode = isUpdateMode;
             console.log($scope.updateMode);
             var new_users = [];
@@ -87,6 +89,9 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
                 task.users[i].tasks = temp.tasks;
                 task.users[i].gps = temp.gps;
                 task.users[i].roles = temp.roles;
+                task.users[i].date = temp.date;
+                task.users[i].description = temp.description;
+                task.users[i].status = temp.status;
                 new_users.push(task.users[i]);
             }
             task.users = new_users;

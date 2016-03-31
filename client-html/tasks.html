@@ -54,7 +54,8 @@
                                     <a href="profile.html" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a ng-href="{{ctrl.appURL + 'logout'}}" class="btn btn-default btn-flat">Sign out</a>
+                                    <a ng-href="{{ctrl.appURL + 'logout'}}" class="btn btn-default btn-flat">Sign
+                                        out</a>
                                 </div>
                             </li>
                         </ul>
@@ -68,7 +69,8 @@
         <section class="sidebar">
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search by ID..." ng-model="activeTask">
+                    <input type="text" name="q" class="form-control" placeholder="Search by ID..."
+                           ng-model="activeTask">
               <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -82,10 +84,12 @@
                 </li>
                 <li><a href="packages.html"><i class="glyphicon glyphicon-gift"></i>
                     <span>Packages</span></a></li>
-                <li class="active"><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a></li>
+                <li class="active"><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a>
+                </li>
 
                 <li ng-show="userCtrl.isAdmin" class="header">Administration</li>
-                <li ng-show="userCtrl.isAdmin"><a href="admin.html"><i class="glyphicon glyphicon-user"></i><span>Users</span></a></li>
+                <li ng-show="userCtrl.isAdmin"><a href="admin.html"><i
+                        class="glyphicon glyphicon-user"></i><span>Users</span></a></li>
                 <!--<li class="treeview">
                   <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
@@ -117,6 +121,9 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Description</th>
+                                    <th>Scheduled For</th>
+                                    <th>Status</th>
                                     <th ng-show="userCtrl.isAdmin || userCtrl.isSuperAdmin">Users</th>
                                     <th>Nodes</th>
                                     <th>Packages</th>
@@ -132,6 +139,9 @@
                                 <tbody>
                                 <tr ng-repeat="task in ctrl.tasks | objectsById:activeTask">
                                     <td ng-bind="task.id"></td>
+                                    <td ng-bind="task.description"></td>
+                                    <td ng-bind="task.date | date:'MM/dd/yyyy HH:mm'"></td>
+                                    <td ng-bind="task.status"></td>
                                     <td ng-show="userCtrl.isAdmin || userCtrl.isSuperAdmin">
                                         <select ng-init="activeUser = task.users[0]" ng-model="activeUser"
                                                 ng-options="user.username for user in task.users"
@@ -173,7 +183,7 @@
                 <div class="modal-body">
                     <h4><strong>Task Information</strong></h4>
 
-                    <form class="form-horizontal col-sm-12 mod_form">
+                    <form class="form-horizontal col-sm-6 mod_form">
                         <br>
 
                         <div class="form-group form-group-sm">
@@ -204,6 +214,35 @@
                             </div>
                         </div>
 
+                    </form>
+                    <form class="form-horizontal col-sm-6 mod_form">
+                        <br>
+
+                        <div class="form-group form-group-sm pull-left">
+                            <label for="inputDescription" class="col-sm-3 control-label">Description</label>
+
+                            <div class="col-sm-9">
+                            <textarea class="form-control" type="text" id="inputDescription"
+                                      ng-model="ctrl.task.description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label for="inputTime" class="col-sm-3 control-label">Time</label>
+
+                            <div class="col-sm-8">
+                                <input class="form-control" type="datetime-local" id="inputTime"
+                                       ng-model="ctrl.task.date">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="col-sm-3 control-label">Status</label>
+
+                            <div class="col-sm-8">
+                                <select ng-model="ctrl.task.status" name="categories" ng-options="status for status in ctrl.status"
+                                        required>
+                                </select>
+                            </div>
+                        </div>
                     </form>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default col-sm-offset-5" data-dismiss="modal"

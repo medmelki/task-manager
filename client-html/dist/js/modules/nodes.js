@@ -6,6 +6,7 @@ app.controller('NodeController', ['$rootScope', '$scope', 'Upload', 'NodeService
         var self = this;
         self.node = {};
         self.nodes = [];
+        self.categories = ["Customer", "Business", "Milestone"];
         $scope.updateMode = 0;
         $scope.updateMode = 0;
         $scope.updateMode = 0;
