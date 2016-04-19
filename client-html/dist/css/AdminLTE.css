@@ -2876,7 +2876,7 @@ table.text-center th {
   border-left-color: #00a65a;
 }
 /*
- * Component: Users List
+ * Component: Drivers List
  * ---------------------
  */
 .users-list > li {
@@ -3122,7 +3122,7 @@ table.text-center th {
   margin: 0 auto;
   margin-top: 10%;
 }
-/* User name [optional] */
+/* Driver name [optional] */
 .lockscreen .lockscreen-name {
   text-align: center;
   font-weight: 600;
@@ -3136,7 +3136,7 @@ table.text-center th {
   margin: 10px auto 30px auto;
   width: 290px;
 }
-/* User image */
+/* Driver image */
 .lockscreen-image {
   border-radius: 50%;
   position: absolute;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tasks</title>
+    <title>Orders</title>
     <link rel="icon"
           type="image/png"
           href="arastu.png">
@@ -34,16 +34,16 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- Task Account: style can be found in dropdown.less -->
+                    <!-- Order Account: style can be found in dropdown.less -->
                     <li class="dropdown task user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img ng-src="{{userCtrl.cstantPicture}}" class="user-image" alt="User Image">
+                            <img ng-src="{{userCtrl.cstantPicture}}" class="user-image" alt="Driver Image">
                             <span class="hidden-xs">{{userCtrl.currentUser.username}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- Task image -->
+                            <!-- Order image -->
                             <li class="user-header">
-                                <img ng-src="{{userCtrl.cstantPicture}}" class="img-circle" alt="User Image">
+                                <img ng-src="{{userCtrl.cstantPicture}}" class="img-circle" alt="Driver Image">
 
                                 <p>
                                     {{userCtrl.currentUser.username}}
@@ -84,12 +84,9 @@
                 </li>
                 <li><a href="packages.html"><i class="glyphicon glyphicon-gift"></i>
                     <span>Packages</span></a></li>
-                <li class="active"><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a>
-                </li>
-
+                <li class="active"><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Orders</span></a></li>
                 <li ng-show="userCtrl.isAdmin" class="header">Administration</li>
-                <li ng-show="userCtrl.isAdmin"><a href="admin.html"><i
-                        class="glyphicon glyphicon-user"></i><span>Users</span></a></li>
+                <li ng-show="userCtrl.isAdmin"><a href="admin.html"><i class="glyphicon glyphicon-user"></i><span>Drivers</span></a></li>
                 <!--<li class="treeview">
                   <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
@@ -103,10 +100,10 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>TASKS</h1>
+            <h1>ORDERS</h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-                <li class="active">Tasks</li>
+                <li class="active">Orders</li>
             </ol>
         </section>
         <section class="content">
@@ -114,7 +111,7 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">Tasks Data</h3>
+                            <h3 class="box-title">Orders Data</h3>
                         </div>
                         <div class="box-body">
                             <table id="example2" class="table table-bordered table-hover">
@@ -176,18 +173,18 @@
         </section>
     </div>
 
-    <!-- Add/Update Task Modal -->
+    <!-- Add/Update Order Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h4><strong>Task Information</strong></h4>
+                    <h4><strong>Order Information</strong></h4>
 
                     <form class="form-horizontal col-sm-6 mod_form">
                         <br>
 
                         <div class="form-group form-group-sm">
-                            <label class="col-sm-3 control-label">Users</label>
+                            <label class="col-sm-3 control-label">Drivers</label>
 
                             <div class="col-sm-8">
                                 <select multiple ng-model="ctrl.task.users"

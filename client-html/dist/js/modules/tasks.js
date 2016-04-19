@@ -21,7 +21,7 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
                         $scope.setActiveNode(0);
                     },
                     function (errResponse) {
-                        console.error('Error while fetching Tasks');
+                        console.error('Error while fetching Orders');
                     }
                 );
         };
@@ -33,7 +33,7 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
                         self.tasks = d;
                     },
                     function (errResponse) {
-                        console.error('Error while fetching task');
+                        console.error('Error while fetching order');
                     }
                 );
         };
@@ -43,7 +43,7 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
                 .then(
                     self.findAllTasks,
                     function (errResponse) {
-                        console.error('Error while creating Task.');
+                        console.error('Error while creating Order.');
                     }
                 );
         };
@@ -53,7 +53,7 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
                 .then(
                     self.findAllTasks,
                     function (errResponse) {
-                        console.error('Error while updating Task.');
+                        console.error('Error while updating Order.');
                     }
                 );
         };
@@ -63,7 +63,7 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
                 .then(
                     self.findAllTasks,
                     function (errResponse) {
-                        console.error('Error while deleting Task.');
+                        console.error('Error while deleting Order.');
                     }
                 );
         };
@@ -96,11 +96,11 @@ app.controller('TaskController', ['$rootScope', '$scope', 'Upload', 'TaskService
             }
             task.users = new_users;
             if ($scope.updateMode === 0) {
-                console.log('Saving New Task', task);
+                console.log('Saving New Order', task);
                 self.createTask(task);
             } else {
                 self.updateTask(task);
-                console.log('Task updated with id ', task.id);
+                console.log('Order updated with id ', task.id);
             }
             self.reset();
         };

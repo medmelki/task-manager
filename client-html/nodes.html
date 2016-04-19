@@ -37,13 +37,13 @@
                     <!-- Node Account: style can be found in dropdown.less -->
                     <li class="dropdown node user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img ng-src="{{userCtrl.cstantPicture}}" class="user-image" alt="User Image">
+                            <img ng-src="{{userCtrl.cstantPicture}}" class="user-image" alt="Driver Image">
                             <span class="hidden-xs">{{userCtrl.currentUser.username}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- Node image -->
                             <li class="user-header">
-                                <img ng-src="{{userCtrl.cstantPicture}}" class="img-circle" alt="User Image">
+                                <img ng-src="{{userCtrl.cstantPicture}}" class="img-circle" alt="Driver Image">
 
                                 <p>
                                     {{userCtrl.currentUser.username}}
@@ -81,10 +81,10 @@
                 <li class="active"><a href="nodes.html"><i class="glyphicon glyphicon-asterisk"></i> <span>Nodes</span></a>
                 </li>
                 <li><a href="packages.html"><i class="glyphicon glyphicon-gift"></i> <span>Packages</span></a></li>
-                <li><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a></li>
+                <li><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Orders</span></a></li>
 
                 <li  ng-show="userCtrl.isAdmin" class="header">Administration</li>
-                <li  ng-show="userCtrl.isAdmin"><a href="admin.html"><i class="glyphicon glyphicon-user"></i><span>Users</span></a></li>
+                <li  ng-show="userCtrl.isAdmin"><a href="admin.html"><i class="glyphicon glyphicon-user"></i><span>Drivers</span></a></li>
                 <!--<li class="treeview">
                   <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
