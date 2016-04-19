@@ -42,7 +42,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                         self.findAllAdmins(d);
                     },
                     function (errResponse) {
-                        console.error('Error while fetching Users');
+                        console.error('Error while fetching Drivers');
                     }
                 );
         };
@@ -88,7 +88,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                 .then(
                     self.findAllUsers,
                     function (errResponse) {
-                        console.error('Error while creating User.');
+                        console.error('Error while creating Driver.');
                     }
                 );
         };
@@ -100,7 +100,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                     self.isItSuperAdmin(self.currentUser.role),
                     self.isItAdmin(self.currentUser.role),
                     function (errResponse) {
-                        console.error('Error while updating User.');
+                        console.error('Error while updating Driver.');
                     }
                 );
         };
@@ -110,7 +110,7 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
                 .then(
                     self.findAllUsers,
                     function (errResponse) {
-                        console.error('Error while deleting User.');
+                        console.error('Error while deleting Driver.');
                     }
                 );
         };
@@ -143,11 +143,11 @@ app.controller('UserController', ['$rootScope', '$scope', 'Upload', 'UserService
             user.role = temp.role;
             user.manager = temp.manager;
             if ($rootScope.updateMode === 0) {
-                console.log('Saving New User', user);
+                console.log('Saving New Driver', user);
                 self.createUser(user);
             } else {
                 self.updateUser(user);
-                console.log('User updated with username ', user.username);
+                console.log('Driver updated with username ', user.username);
             }
             if ($scope.file != null) {
                 $scope.uploadProfilePicture($scope.file);

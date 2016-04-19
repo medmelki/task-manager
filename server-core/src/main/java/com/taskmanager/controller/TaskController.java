@@ -66,19 +66,61 @@ public class TaskController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/task/", method = RequestMethod.POST)
     public ResponseEntity<Void> addTask(@RequestBody Task task) {
-        putManager(task);
-        applyStatus(task);
-        taskService.create(task);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        if (task != null && task.getNodes() != null) {
+            List<Node> nodes = task.getNodes();
+            if (task.getPacks() != null) {
+                List<Pack> packs = task.getPacks();
+                // create the packs if they are new
+                for (Pack pack : packs) {
+                    if (packService.read(pack.getId()) == null) {
+                        packService.create(pack);
+                    }
+                }
+            }
+            // create the nodes if they are new
+            for (Node node : nodes) {
+                if (nodeService.read(node.getId()) == null) {
+                    nodeService.create(node);
+                }
+            }
+            putManager(task);
+            applyStatus(task);
+            taskService.create(task);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     @RequestMapping(value = "/task/", method = RequestMethod.PUT)
     public ResponseEntity<Task> updateTask(@RequestBody Task task) {
-        putManager(task);
-        applyStatus(task);
-        taskService.update(task);
-        return new ResponseEntity<>(task, HttpStatus.OK);
+        if (task != null && task.getNodes() != null) {
+            List<Node> nodes = task.getNodes();
+            if (task.getPacks() != null) {
+                List<Pack> packs = task.getPacks();
+                // create the packs if they are new
+                for (Pack pack : packs) {
+                    if (packService.read(pack.getId()) == null) {
+                        packService.create(pack);
+                    } else {
+                        packService.update(pack);
+                    }
+                }
+            }
+            // create the nodes if they are new
+            for (Node node : nodes) {
+                if (nodeService.read(node.getId()) == null) {
+                    nodeService.create(node);
+                } else {
+                    nodeService.update(node);
+                }
+            }
+            putManager(task);
+            applyStatus(task);
+            taskService.update(task);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
@@ -113,6 +155,7 @@ public class TaskController {
                 }
             }
             putManager(task);
+            applyStatus(task);
             taskService.create(task);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
@@ -127,7 +170,7 @@ public class TaskController {
     }
 
     private void applyStatus(Task task) {
-        if (task.getUsers() != null && !task.getUsers().isEmpty() && task.getStatus() == null) {
+        if (task.getUser() != null && task.getStatus() == null) {
             task.setStatus(TASK_ASSIGNED_STATUS);
         }
     }

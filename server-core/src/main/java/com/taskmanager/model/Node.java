@@ -24,15 +24,13 @@ public class Node implements Serializable {
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
     private GPS gps;
-    private String firstname;
-    private String lastname;
+    private String name;
     private Long time;
     private String email;
     private String contact;
     private String address;
     private String notes;
     private String manager;
-    private String category;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "nodes")
     private List<Task> tasks;
 
@@ -113,27 +111,11 @@ public class Node implements Serializable {
         this.manager = manager;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+    public void setName(String name) {
+        this.name = name;
     }
 }

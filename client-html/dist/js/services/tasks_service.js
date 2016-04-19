@@ -93,7 +93,25 @@ app.factory('TaskService', ['$window', '$http', '$q', 'CommonService', function 
                         return $q.reject(errResponse);
                     }
                 );
-        }
+        },
+
+        generateTask: function (task) {
+            return $http.post(appURL + 'task/auto/', task, {
+                    withCredentials: true
+                })
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (errResponse) {
+                        console.error('Error while creating node');
+                        if (errResponse.status == 403) {
+                            $window.location = "login.html";
+                        }
+                        return $q.reject(errResponse);
+                    }
+                );
+        },
 
     };
 

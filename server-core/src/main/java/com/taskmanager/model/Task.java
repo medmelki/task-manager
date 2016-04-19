@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -17,13 +19,12 @@ public class Task implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
+    private String title;
     private Long date;
     private String description;
     private String status;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<User> users;
+    @ManyToOne
+    private User user;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Node> nodes;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -42,12 +43,12 @@ public class Task implements Serializable {
         this.id = id;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Node> getNodes() {
@@ -96,5 +97,13 @@ public class Task implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

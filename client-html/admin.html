@@ -34,16 +34,16 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- User Account: style can be found in dropdown.less -->
+                    <!-- Driver Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img ng-src="{{ctrl.cstantPicture}}" class="user-image" alt="User Image">
+                            <img ng-src="{{ctrl.cstantPicture}}" class="user-image" alt="Driver Image">
                             <span class="hidden-xs">{{ctrl.currentUser.username}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- User image -->
+                            <!-- Driver image -->
                             <li class="user-header">
-                                <img ng-src="{{ctrl.cstantPicture}}" class="img-circle" alt="User Image">
+                                <img ng-src="{{ctrl.cstantPicture}}" class="img-circle" alt="Driver Image">
 
                                 <p>
                                     {{ctrl.currentUser.username}}
@@ -84,10 +84,10 @@
 
                 <li><a href="nodes.html"><i class="glyphicon glyphicon-asterisk"></i> <span>Nodes</span></a></li>
                 <li><a href="packages.html"><i class="glyphicon glyphicon-gift"></i> <span>Packages</span></a></li>
-                <li><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a></li>
+                <li><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Orders</span></a></li>
 
                 <li class="header">Administration</li>
-                <li class="active"><a href="admin.html"><i class="glyphicon glyphicon-user"></i><span>Users</span></a>
+                <li class="active"><a href="admin.html"><i class="glyphicon glyphicon-user"></i><span>Drivers</span></a>
                 </li>
                 <br>
                 <br>
@@ -113,10 +113,10 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>USERS</h1>
+            <h1>DRIVERS</h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Administration</a></li>
-                <li class="active">Users</li>
+                <li class="active">Drivers</li>
             </ol>
         </section>
         <section class="content">
@@ -124,7 +124,7 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">Users Data</h3>
+                            <h3 class="box-title">Drivers Data</h3>
                         </div>
                         <div class="box-body">
                             <table id="example2" class="table table-bordered table-hover">
@@ -183,12 +183,12 @@
     <strong>Copyright &copy; 2016 <a href="#">Arastu</a>.</strong> All rights reserved.
 </footer>
 
-<!-- Add/Update User Modal -->
+<!-- Add/Update Driver Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <h4><strong>User Information</strong></h4>
+                <h4><strong>Driver Information</strong></h4>
 
                 <form name="form1" class="form-horizontal col-sm-6 mod_form">
                     <br>

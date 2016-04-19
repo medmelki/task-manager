@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -51,7 +50,7 @@ public class User implements Serializable, UserDetails {
     @OneToOne
     @JoinColumn(name = "gps_fk", nullable = true)
     private GPS gps;
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "user")
     private List<Task> tasks;
     private String deviceId;
     private String ServerIP;

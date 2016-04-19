@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>User Profile</title>
+    <title>Driver Profile</title>
     <link rel="icon"
           type="image/png"
           href="arastu.png">
@@ -43,16 +43,16 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- User Account: style can be found in dropdown.less -->
+                    <!-- Driver Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img ng-src="{{ctrl.cstantPicture}}" class="user-image" alt="User Image">
+                            <img ng-src="{{ctrl.cstantPicture}}" class="user-image" alt="Driver Image">
                             <span class="hidden-xs">{{ctrl.currentUser.username}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- User image -->
+                            <!-- Driver image -->
                             <li class="user-header">
-                                <img ng-src="{{ctrl.cstantPicture}}" class="img-circle" alt="User Image">
+                                <img ng-src="{{ctrl.cstantPicture}}" class="img-circle" alt="Driver Image">
 
                                 <p>
                                     {{ctrl.currentUser.username}}
@@ -85,11 +85,11 @@
                 </li>
                 <li class="active"><a href="packages.html"><i class="glyphicon glyphicon-gift"></i>
                     <span>Packages</span></a></li>
-                <li><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Tasks</span></a></li>
+                <li><a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i> <span>Orders</span></a></li>
 
                 <li ng-show="userCtrl.isAdmin" class="header">Administration</li>
                 <li ng-show="userCtrl.isAdmin"><a href="admin.html"><i
-                        class="glyphicon glyphicon-user"></i><span>Users</span></a></li>
+                        class="glyphicon glyphicon-user"></i><span>Drivers</span></a></li>
                 <!--<li class="treeview">
                   <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
@@ -106,12 +106,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                User Profile
+                Driver Profile
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <!--<li><a href="#">Examples</a></li>-->
-                <li class="active"><i class="fa fa-user"></i> User Profile</li>
+                <li class="active"><i class="fa fa-user"></i> Driver Profile</li>
             </ol>
         </section>
 
@@ -127,7 +127,7 @@
                             <img data-toggle="modal"
                                  data-target="#addModal" class="profile-user-img img-responsive img-circle"
                                  ng-src="{{ctrl.cstantPicture}}"
-                                 alt="User profile picture" ng-click="ctrl.setAddMode()">
+                                 alt="Driver profile picture" ng-click="ctrl.setAddMode()">
 
                             <h3 class="profile-username text-center">{{ctrl.currentUser.firstname + ' ' + ctrl.currentUser.lastname}}</h3>
 
